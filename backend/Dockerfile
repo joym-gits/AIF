@@ -10,6 +10,7 @@ COPY package.json package-lock.json tsconfig.base.json ./
 COPY backend ./backend
 COPY shared ./shared
 RUN npm install --workspace=backend --workspace=shared --include-workspace-root \
+ && npm run build --workspace=shared \
  && npm run build --workspace=backend
 
 FROM node:20-alpine AS runtime

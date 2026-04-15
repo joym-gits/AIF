@@ -5,9 +5,14 @@
   "targets": {
     "ai-intelligence-feed": {
       "hosting": {
-        "publisher": ["aif-publisher"],
-        "reader": ["aif-reader"]
+        "publisher": [
+          "aif-publisher"
+        ],
+        "reader": [
+          "aif-reader"
+        ]
       }
     }
-  }
+  },
+  "etags": {}
 }
