@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, ResponsiveContainer, Tooltip } from "recharts";
 import MDEditor from "@uiw/react-md-editor";
 import { api } from "../lib/api";
@@ -169,19 +169,35 @@ export default function FeedDetail() {
 }
 
 function ConnectAgentPanel({ feedId }: { feedId: string }) {
-  const webhook = `${import.meta.env.VITE_API_URL ?? ""}/api/v1/feeds/${feedId}/items`;
   return (
     <div className="bg-card border border-slate-800 rounded p-4">
-      <div className="text-xs uppercase text-slate-400 mb-2">Connect agent runner</div>
-      <div className="text-sm space-y-2">
-        <div>
-          <span className="text-slate-400">Webhook URL:</span>
-          <code className="ml-2 text-xs bg-bg px-2 py-1 rounded">{webhook}</code>
-        </div>
-        <div>
-          <span className="text-slate-400">Auth:</span>
-          <span className="ml-2 text-xs">Use your Supabase JWT as Bearer token.</span>
-        </div>
+      <div className="flex items-center gap-2 mb-3">
+        <div className="text-xs uppercase text-slate-400">Automate this feed</div>
+        <Link to="/docs/automation" className="text-xs text-brand hover:underline ml-auto">Full guide →</Link>
+      </div>
+      <p className="text-sm text-slate-400 mb-3">
+        Agents run on your infrastructure, not ours. AIF never stores your Anthropic API key.
+        Create an AIF API key below and pick a path.
+      </p>
+      <ol className="space-y-3 text-sm">
+        <li>
+          <span className="font-medium">1. GitHub Actions</span>{" "}
+          <span className="text-slate-400">— recommended. Copy <code className="text-xs bg-bg px-1 rounded">agent-runner/</code> into your own repo, add two secrets, commit.</span>{" "}
+          <Link to="/docs/automation#path-1--github-actions-recommended" className="text-brand hover:underline">Steps</Link>
+        </li>
+        <li>
+          <span className="font-medium">2. Local CLI</span>{" "}
+          <span className="text-slate-400">— runs on your machine. <code className="text-xs bg-bg px-1 rounded">npx aif-agent start</code>.</span>{" "}
+          <Link to="/docs/agent-runner" className="text-brand hover:underline">Steps</Link>
+        </li>
+        <li>
+          <span className="font-medium">3. Custom integration</span>{" "}
+          <span className="text-slate-400">— write your own agent in any language; POST to our API.</span>{" "}
+          <Link to="/docs/api-reference" className="text-brand hover:underline">Contract</Link>
+        </li>
+      </ol>
+      <div className="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400">
+        Feed ID: <code className="bg-bg px-1 py-0.5 rounded">{feedId}</code>
       </div>
     </div>
   );

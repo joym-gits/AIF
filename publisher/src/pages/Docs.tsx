@@ -6,6 +6,7 @@ import quickStart from "../docs/quick-start.md?raw";
 import publishers from "../docs/publishers.md?raw";
 import readers from "../docs/readers.md?raw";
 import agentRunner from "../docs/agent-runner.md?raw";
+import automation from "../docs/automation.md?raw";
 import apiReference from "../docs/api-reference.md?raw";
 import faq from "../docs/faq.md?raw";
 import protocolSpec from "../../../protocol/AIF-SPEC.md?raw";
@@ -22,7 +23,8 @@ const PAGES: DocPage[] = [
   { slug: "quick-start", title: "Quick start", content: quickStart, group: "Overview" },
   { slug: "publishers", title: "For publishers", content: publishers, group: "Guides" },
   { slug: "readers", title: "For readers", content: readers, group: "Guides" },
-  { slug: "agent-runner", title: "Agent-runner", content: agentRunner, group: "Guides" },
+  { slug: "automation", title: "Automate your feed", content: automation, group: "Guides" },
+  { slug: "agent-runner", title: "Agent-runner CLI", content: agentRunner, group: "Guides" },
   { slug: "protocol-spec", title: "Protocol spec", content: protocolSpec, group: "Reference" },
   { slug: "api-reference", title: "API reference", content: apiReference, group: "Reference" },
   { slug: "faq", title: "FAQ & troubleshooting", content: faq, group: "Reference" },

@@ -1,0 +1,57 @@
+# Run the AIF agent on a schedule from your own GitHub Actions account.
+#
+# Setup:
+#   1. Fork/copy this project to your own GitHub repo.
+#   2. Settings → Secrets and variables → Actions → add:
+#        ANTHROPIC_API_KEY   (your Anthropic key)
+#        AIF_API_KEY         (your aif_sk_… key from the feed detail page)
+#   3. Edit aif-agent.config.json: set feed_id, schedule, sources, instructions.
+#      The api_key field in the config should be left as a placeholder — the
+#      workflow below injects AIF_API_KEY at runtime so it never ends up on disk.
+#   4. Commit. That's it — the cron below fires automatically.
+#
+# GitHub Actions free tier: 2,000 min/month for private repos, unlimited for public.
+# A typical agent run takes ~20s, so a daily cron costs <1% of your budget.
+
+name: Publish AIF items
+
+on:
+  # Read the schedule from your config. Default: every Monday at 08:00 UTC.
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch: {} # manual trigger button in the Actions UI
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        working-directory: agent-runner
+        run: npm install
+
+      - name: Build
+        working-directory: agent-runner
+        run: npm run build
+
+      - name: Inject API key into config
+        working-directory: agent-runner
+        env:
+          AIF_API_KEY: ${{ secrets.AIF_API_KEY }}
+        run: |
+          # Replace any api_key value in the config with the secret at runtime.
+          # The secret stays in memory; never written to a committed file.
+          node -e "const fs=require('fs');const f='aif-agent.config.json';const c=JSON.parse(fs.readFileSync(f));c.api_key=process.env.AIF_API_KEY;fs.writeFileSync(f,JSON.stringify(c,null,2));"
+
+      - name: Run agent
+        working-directory: agent-runner
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AIF_BACKEND_URL: https://aif-backend-364107123829.us-central1.run.app
+        run: node dist/index.js --run-now
