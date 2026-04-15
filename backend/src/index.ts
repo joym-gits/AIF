@@ -18,9 +18,23 @@ import { startScheduler } from "./services/scheduler";
 
 const app = express();
 
+// Trust the proxy Cloud Run / Render / Fly sit behind so client IPs are correct
+// (req.ip becomes the real client address, which makes rate-limiting per-IP work).
+app.set("trust proxy", 1);
+
 app.use(pinoHttp({ logger }));
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      // Allow server-to-server (no Origin header) and anything in the allow-list.
+      if (!origin) return cb(null, true);
+      if (env.ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
+      return cb(new Error(`Origin not allowed: ${origin}`));
+    },
+    credentials: true,
+  }),
+);
 
 app.use(
   "/widget",

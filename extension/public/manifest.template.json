@@ -33,6 +33,6 @@
     "*://chatgpt.com/*",
     "*://gemini.google.com/*",
     "*://chat.mistral.ai/*",
-    "https://api.your-aif-backend.com/*"
+    "{{BACKEND_HOST}}"
   ]
 }

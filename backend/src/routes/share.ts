@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { supabaseAdmin } from "../supabase";
+import { env } from "../env";
 
 const router = Router();
 
@@ -20,8 +21,7 @@ router.get("/items/:id", async (req, res) => {
     return;
   }
   const feed = item.feeds as { id: string; title: string; feed_url: string; domain?: string } | null;
-  const readerUrl = process.env.AIF_READER_URL ?? "https://reader.aif.dev";
-  const shareUrl = `${readerUrl}/items/${item.id}`;
+  const shareUrl = `${env.AIF_READER_URL}/items/${item.id}`;
 
   res.type("html").send(`<!doctype html>
 <html lang="en">

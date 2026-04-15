@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "ai-intelligence-feed"
+  },
+  "targets": {
+    "ai-intelligence-feed": {
+      "hosting": {
+        "publisher": ["aif-publisher"],
+        "reader": ["aif-reader"]
+      }
+    }
+  }
+}
