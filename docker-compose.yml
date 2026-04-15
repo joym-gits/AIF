@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file: ./backend/.env
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+    restart: unless-stopped
+
+  publisher:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install --workspace=publisher && npm run dev --workspace=publisher -- --host 0.0.0.0"
+    env_file: ./publisher/.env
+    volumes:
+      - .:/app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  reader:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install --workspace=reader && npm run dev --workspace=reader -- --host 0.0.0.0"
+    env_file: ./reader/.env
+    volumes:
+      - .:/app
+    ports:
+      - "5174:5174"
+    depends_on:
+      - backend

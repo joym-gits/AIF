@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #0f0f13;
+  color: #e2e8f0;
+}
+
+.w-md-editor {
+  background: #1a1a24 !important;
+  color: #e2e8f0 !important;
+}

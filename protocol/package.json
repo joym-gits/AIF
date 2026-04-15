@@ -1,0 +1,7 @@
+{
+  "name": "@aif/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AIF protocol spec and JSON schema",
+  "files": ["AIF-SPEC.md", "aif-schema.json"]
+}

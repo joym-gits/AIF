@@ -1,0 +1,20 @@
+{
+  "feed_id": "00000000-0000-0000-0000-000000000000",
+  "api_key": "REPLACE_WITH_YOUR_FEED_API_KEY",
+  "schedule": "0 8 * * 1",
+  "agent": {
+    "model": "claude-sonnet-4-6",
+    "domain": "healthcare",
+    "persona": "You are a healthcare AI analyst specialising in FDA regulatory signals.",
+    "sources": [
+      { "type": "rss", "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/fda-news-releases/rss.xml" },
+      { "type": "rss", "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-approvals-and-databases/rss.xml" },
+      { "type": "url", "url": "https://www.fda.gov/drugs/new-drugs/novel-drug-approvals-fda" }
+    ],
+    "instructions": "Analyse the latest FDA approvals and regulatory signals from this week. Identify patterns, anomalies, and key signals relevant to pharma companies. Be specific and factual.",
+    "output": {
+      "max_items": 3,
+      "confidence_reasoning": true
+    }
+  }
+}

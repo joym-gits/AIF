@@ -1,0 +1,29 @@
+{
+  "name": "aif-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AIF (AI Intelligence Feed) — open protocol for AI-generated intelligence streams",
+  "workspaces": [
+    "protocol",
+    "backend",
+    "extension",
+    "publisher",
+    "reader",
+    "agent-runner",
+    "shared"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:publisher": "npm run dev --workspace=publisher",
+    "dev:reader": "npm run dev --workspace=reader",
+    "dev:extension": "npm run dev --workspace=extension",
+    "build:all": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
