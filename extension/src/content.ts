@@ -81,9 +81,84 @@ function maybeShowAiPlatformPill(count: number): void {
   document.body.appendChild(pill);
 }
 
+async function maybeShowFirstTimeTooltip(count: number): Promise<void> {
+  if (count === 0) return;
+  const { aif_tooltip_shown } = await chrome.storage.local.get("aif_tooltip_shown");
+  if (aif_tooltip_shown) return;
+  await chrome.storage.local.set({ aif_tooltip_shown: true });
+
+  const tip = document.createElement("div");
+  tip.id = "aif-first-tooltip";
+  tip.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:28px;height:28px;border-radius:6px;background:#6366f1;display:flex;align-items:center;justify-content:center;font:700 10px system-ui;color:#fff;flex-shrink:0">AIF</div>
+      <div>
+        <div style="font-weight:600;font-size:13px">This page publishes an AI Intelligence Feed</div>
+        <div style="font-size:12px;color:#94a3b8;margin-top:2px">Click the AIF icon in your toolbar to subscribe.</div>
+      </div>
+      <button id="aif-tip-close" style="margin-left:auto;background:none;border:none;color:#64748b;cursor:pointer;font-size:16px;padding:0 4px">✕</button>
+    </div>`;
+  tip.style.cssText = [
+    "position:fixed",
+    "top:16px",
+    "right:16px",
+    "z-index:2147483647",
+    "background:#1a1a24",
+    "color:#e2e8f0",
+    "padding:14px 16px",
+    "border-radius:10px",
+    "border:1px solid #6366f1",
+    "box-shadow:0 8px 30px rgba(99,102,241,.25),0 0 0 1px rgba(99,102,241,.1)",
+    "font-family:system-ui,-apple-system,Arial,sans-serif",
+    "max-width:380px",
+    "animation:aif-slide-in .3s ease-out",
+  ].join(";");
+
+  const style = document.createElement("style");
+  style.textContent = `@keyframes aif-slide-in{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}`;
+  document.head.appendChild(style);
+  document.body.appendChild(tip);
+
+  tip.querySelector("#aif-tip-close")?.addEventListener("click", () => tip.remove());
+  setTimeout(() => tip.remove(), 8000);
+}
+
+function showInjectShareToast(feedTitle: string, itemId?: string): void {
+  const existing = document.getElementById("aif-inject-toast");
+  if (existing) existing.remove();
+
+  const toast = document.createElement("div");
+  toast.id = "aif-inject-toast";
+  const shareText = encodeURIComponent(`Just injected ${feedTitle}'s latest analysis into my AI chat via AIF — much better answers with real-time context.`);
+  const shareUrl = itemId ? encodeURIComponent(`https://aif-reader.web.app/items/${itemId}`) : "";
+  toast.innerHTML = `
+    <span style="color:#6366f1;font-weight:600">✓ Context injected</span>
+    <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank"
+       style="margin-left:12px;color:#94a3b8;text-decoration:underline;font-size:12px">Share this on X</a>`;
+  toast.style.cssText = [
+    "position:fixed",
+    "bottom:20px",
+    "right:20px",
+    "z-index:2147483647",
+    "background:#1a1a24",
+    "color:#e2e8f0",
+    "padding:10px 16px",
+    "border-radius:8px",
+    "border:1px solid #334155",
+    "box-shadow:0 6px 20px rgba(0,0,0,.4)",
+    "font:13px system-ui,-apple-system,Arial,sans-serif",
+    "display:flex",
+    "align-items:center",
+    "animation:aif-slide-in .3s ease-out",
+  ].join(";");
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 6000);
+}
+
 function reportAndDecorate(): void {
   const feeds = reportFeeds();
   maybeShowAiPlatformPill(feeds.length);
+  void maybeShowFirstTimeTooltip(feeds.length);
 }
 
 markExtensionPresent();
@@ -98,6 +173,7 @@ chrome.runtime.onMessage.addListener((msg: Message, _sender, sendResponse) => {
   }
   if (msg.type === "INJECT_CONTEXT") {
     const ok = injectContext(msg.feedTitle, msg.item);
+    if (ok) showInjectShareToast(msg.feedTitle, msg.item.id);
     sendResponse({ ok });
     return true;
   }

@@ -14,6 +14,8 @@ RUN npm install --workspace=backend --workspace=shared --include-workspace-root 
  && npm run build --workspace=backend
 
 FROM node:20-alpine AS runtime
+RUN apk add --no-cache fontconfig ttf-dejavu ttf-liberation ttf-freefont \
+ && fc-cache -f
 WORKDIR /app
 ENV NODE_ENV=production
 # Cloud Run injects PORT (default 8080). Our env.ts reads it.
