@@ -35,7 +35,8 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       )}
 
       <nav className="space-y-1">
-        <NavLink to="/" className={link} onClick={onNavigate} end>All Items</NavLink>
+        <NavLink to="/" className={link} onClick={onNavigate} end>Pulse</NavLink>
+        {session && <NavLink to="/stream" className={link} onClick={onNavigate}>My Stream</NavLink>}
         <NavLink to="/discover" className={link} onClick={onNavigate}>Discover</NavLink>
         {session && <NavLink to="/notifications" className={link} onClick={onNavigate}>Notifications</NavLink>}
       </nav>

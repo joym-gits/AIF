@@ -15,6 +15,7 @@ import shareRouter from "./routes/share";
 import apiKeysRouter from "./routes/apiKeys";
 import publicFeedRouter from "./routes/publicFeed";
 import notificationsRouter from "./routes/notifications";
+import insightsRouter from "./routes/insights";
 import { startScheduler } from "./services/scheduler";
 
 const app = express();
@@ -64,6 +65,7 @@ app.use("/api/v1/me/api-keys", apiKeysRouter);
 app.use("/api/v1/me/notifications", notificationsRouter);
 app.use("/api/v1/me", meRouter);
 app.use("/api/v1/stats", statsRouter);
+app.use("/api/v1/insights", insightsRouter);
 app.use("/api/v1/items", itemsRouter);
 app.use("/share", shareRouter);
 app.use("/feeds", publicFeedRouter);
