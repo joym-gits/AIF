@@ -1,21 +1,32 @@
 {
-  "name": "@aif/agent-runner",
+  "name": "aif-agent-runner",
   "version": "0.1.0",
-  "private": true,
-  "description": "AI agent that publishes AIF feed items on a schedule",
+  "description": "CLI tool to run AI agents that publish to AIF (AI Intelligence Feed) on a schedule",
+  "license": "MIT",
   "main": "dist/index.js",
   "bin": {
     "aif-agent": "dist/cli.js"
+  },
+  "files": [
+    "dist/",
+    "aif-agent.config.json",
+    ".env.example",
+    "README.md"
+  ],
+  "keywords": ["aif", "ai", "intelligence", "feed", "agent", "rss", "anthropic", "claude"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joym-gits/AIF.git",
+    "directory": "agent-runner"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "cli": "ts-node-dev --transpile-only src/cli.ts",
+    "prepublishOnly": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aif/shared": "*",
     "@anthropic-ai/sdk": "^0.27.0",
     "axios": "^1.7.2",
     "cheerio": "^1.0.0",
@@ -26,7 +37,6 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "@types/node-cron": "^3.0.11",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }
 }

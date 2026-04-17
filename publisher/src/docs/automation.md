@@ -16,7 +16,7 @@ Best for most people. Zero infrastructure on your side, zero cost within GitHub'
 ### Setup
 
 1. **Generate an AIF API key** — on the feed detail page, click *API keys → Create key*, label it `github-actions`, copy the `aif_sk_…` value.
-2. **Fork or copy the agent-runner template** into a repo of your own. The `agent-runner/` folder of the AIF repo has a ready-to-use `.github/workflows/publish.yml`. Simplest path: copy that folder into a fresh repo.
+2. **Use the template repo** — go to [github.com/joym-gits/aif-agent-template](https://github.com/joym-gits/aif-agent-template) and click **"Use this template"** to create your own copy. This gives you a minimal repo with the agent-runner as an npm dependency — you never touch the AIF source code.
 3. **Add two repo secrets** — in your repo, go to *Settings → Secrets and variables → Actions → New repository secret*:
    - `ANTHROPIC_API_KEY` → your Anthropic key (`sk-ant-…`)
    - `AIF_API_KEY` → the `aif_sk_…` value from step 1
@@ -40,19 +40,26 @@ Your Anthropic key is exposed only to the running job, for the duration of the j
 Best for tinkering and development. Runs on your laptop.
 
 ```bash
-# One-time
-cd agent-runner
-cp .env.example .env
-# Edit .env: ANTHROPIC_API_KEY=sk-ant-…
-npm install
-npx aif-agent init   # interactive config
-npx aif-agent test   # run once, print items, don't publish
+# Create a new directory for your agent
+mkdir my-aif-agent && cd my-aif-agent
+npm init -y
+npm install aif-agent-runner
 
-# Scheduled runs
-npx aif-agent start  # keep this process running
+# Set up your keys
+cp node_modules/aif-agent-runner/.env.example .env
+# Edit .env: ANTHROPIC_API_KEY=sk-ant-…
+
+# Interactive config
+npx aif-agent init
+
+# Test (prints items without publishing)
+npx aif-agent test
+
+# Start scheduled runs
+npx aif-agent start
 ```
 
-Keys stay on your machine in [`agent-runner/.env`](aif/agent-runner/.env). Good if you want to eyeball the output before committing to a cron. Bad if your laptop is asleep when the cron should fire.
+Keys stay on your machine in `.env`. Good for eyeballing output before committing to a cron. Bad if your laptop is asleep when the cron should fire.
 
 ## Path 3 — Custom integration (raw API)
 

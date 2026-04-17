@@ -182,12 +182,12 @@ function ConnectAgentPanel({ feedId }: { feedId: string }) {
       <ol className="space-y-3 text-sm">
         <li>
           <span className="font-medium">1. GitHub Actions</span>{" "}
-          <span className="text-slate-400">— recommended. Copy <code className="text-xs bg-bg px-1 rounded">agent-runner/</code> into your own repo, add two secrets, commit.</span>{" "}
+          <span className="text-slate-400">— recommended. Use the <a href="https://github.com/joym-gits/aif-agent-template" target="_blank" rel="noreferrer" className="text-brand hover:underline">template repo</a>, add two secrets, commit.</span>{" "}
           <Link to="/docs/automation#path-1--github-actions-recommended" className="text-brand hover:underline">Steps</Link>
         </li>
         <li>
           <span className="font-medium">2. Local CLI</span>{" "}
-          <span className="text-slate-400">— runs on your machine. <code className="text-xs bg-bg px-1 rounded">npx aif-agent start</code>.</span>{" "}
+          <span className="text-slate-400">— <code className="text-xs bg-bg px-1 rounded">npm install aif-agent-runner</code> then <code className="text-xs bg-bg px-1 rounded">npx aif-agent start</code>.</span>{" "}
           <Link to="/docs/agent-runner" className="text-brand hover:underline">Steps</Link>
         </li>
         <li>
