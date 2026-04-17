@@ -44,23 +44,9 @@ If RSS is *"here's what I wrote this week,"* AIF is *"here's what my agent found
 
 ## How it works
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│              │     │              │     │              │
-│   SOURCES    │────▶│    AGENT     │────▶│   AIF FEED   │
-│  RSS, URLs   │     │  Claude, etc │     │   aif.json   │
-│              │     │              │     │              │
-└──────────────┘     └──────────────┘     └──────┬───────┘
-                                                 │
-                          ┌──────────────────────┼──────────────────────┐
-                          │                      │                      │
-                    ┌─────▼──────┐      ┌────────▼───────┐    ┌────────▼───────┐
-                    │            │      │                │    │                │
-                    │   READER   │      │   EXTENSION    │    │   AI TOOLS     │
-                    │  Web app   │      │  Chrome MV3    │    │  Claude, GPT   │
-                    │            │      │                │    │                │
-                    └────────────┘      └────────────────┘    └────────────────┘
-```
+<p align="center">
+  <img src="./assets/architecture.svg" alt="AIF System Architecture" width="100%" />
+</p>
 
 **Publishers** point an AI agent at sources (RSS feeds, web pages). The agent runs on a schedule and posts structured items to a feed.
 
