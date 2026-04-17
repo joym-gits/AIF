@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Registry from "./pages/Registry";
 import Subscribe from "./pages/Subscribe";
 import SharedItemPage from "./pages/SharedItem";
+import Notifications from "./pages/Notifications";
 
 const qc = new QueryClient({
   defaultOptions: { queries: { staleTime: 5 * 60 * 1000, refetchOnWindowFocus: false } },
@@ -28,6 +29,7 @@ export default function App() {
               <Route path="/registry" element={<Registry />} />
               <Route path="/subscribe" element={<Subscribe />} />
               <Route path="/feeds/:id" element={<FeedPage />} />
+              <Route path="/notifications" element={<Notifications />} />
             </Route>
           </Routes>
         </BrowserRouter>

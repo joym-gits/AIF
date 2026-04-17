@@ -7,6 +7,7 @@ import { fetchAndStore } from "../services/feedFetcher";
 import { logger } from "../lib/logger";
 import { maybeMarkVerified } from "../services/verification";
 import { env } from "../env";
+import { notifySubscribers } from "../services/notifier";
 
 const MAX_ITEMS_PER_FEED = 1000;
 const MAX_ITEMS_PER_PUBLISH = 10;
@@ -278,6 +279,12 @@ router.post("/:id/items", requireAuth, async (req: AuthedRequest, res: Response)
   await maybeMarkVerified(feed.id, feed.user_id);
   logger.info({ feedId: feed.id, n: data?.length ?? 0 }, "items published");
   res.status(201).json(Array.isArray(body) ? { items: data } : { item: data?.[0] });
+
+  // Fire-and-forget: notify subscribers via their configured channels
+  const { data: feedMeta } = await supabaseAdmin.from("feeds").select("title").eq("id", feed.id).single();
+  notifySubscribers(feed.id, feedMeta?.title ?? "AIF Feed", data ?? []).catch((err) =>
+    logger.error({ feedId: feed.id, err: (err as Error).message }, "notification dispatch failed"),
+  );
 });
 
 router.get("/:id/health", async (req, res) => {
