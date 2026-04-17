@@ -5,6 +5,17 @@ import { renderCard, CardData } from "../services/cardRenderer";
 
 const router = Router();
 
+// Share pages are consumed by external crawlers (WhatsApp, iMessage, Slack, LinkedIn).
+// Strip restrictive security headers that block preview rendering.
+router.use((_req, res, next) => {
+  res.removeHeader("Content-Security-Policy");
+  res.removeHeader("X-Frame-Options");
+  res.removeHeader("Cross-Origin-Opener-Policy");
+  res.removeHeader("Origin-Agent-Cluster");
+  res.setHeader("X-Robots-Tag", "noindex");
+  next();
+});
+
 function esc(s: string | null | undefined): string {
   return (s ?? "").replace(/[&<>"']/g, (c) => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!
@@ -62,7 +73,7 @@ router.get("/items/:id", async (req, res) => {
   }
   const feed = item.feeds as { id: string; title: string; feed_url: string; domain?: string } | null;
   const shareUrl = `${env.AIF_READER_URL}/items/${item.id}`;
-  const ogImageUrl = `${env.PUBLIC_BASE_URL}/share/items/${item.id}/card.png`;
+  const ogImageUrl = `${env.AIF_READER_URL}/share/items/${item.id}/card.png`;
 
   res.type("html").send(`<!doctype html>
 <html lang="en">
@@ -83,13 +94,22 @@ router.get("/items/:id", async (req, res) => {
 <meta name="twitter:description" content="${esc(item.summary)}"/>
 <meta name="twitter:image" content="${esc(ogImageUrl)}"/>
 <link rel="canonical" href="${esc(shareUrl)}"/>
-<meta http-equiv="refresh" content="0; url=${esc(shareUrl)}"/>
+<style>body{background:#0f0f13;color:#e2e8f0;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+.card{max-width:600px;background:#1a1a24;border:1px solid #2a2a3a;border-radius:12px;padding:32px;text-align:center}
+h1{font-size:22px;margin:0 0 8px}p{color:#94a3b8;margin:4px 0;font-size:14px}
+a{color:#6366f1;text-decoration:none}.conf{height:6px;background:#2a2a3a;border-radius:3px;margin:16px 0 8px;overflow:hidden}
+.bar{height:100%;border-radius:3px}</style>
 </head>
 <body>
-<p>Redirecting to <a href="${esc(shareUrl)}">${esc(shareUrl)}</a>…</p>
-<h1>${esc(item.title)}</h1>
-<p>${esc(item.summary)}</p>
-<p>From feed: <strong>${esc(feed?.title ?? "")}</strong></p>
+<div class="card">
+  <p style="color:#64748b;font-size:12px">${esc(feed?.title ?? "")} · AIF</p>
+  <h1>${esc(item.title)}</h1>
+  <p>${esc(item.summary)}</p>
+  <div class="conf"><div class="bar" style="width:${Math.round((item.confidence ?? 0) * 100)}%;background:${(item.confidence ?? 0) >= 0.8 ? "#22c55e" : (item.confidence ?? 0) >= 0.5 ? "#f59e0b" : "#ef4444"}"></div></div>
+  <p style="font-size:12px">Confidence: ${((item.confidence ?? 0) * 100).toFixed(0)}%</p>
+  <p style="margin-top:20px"><a href="${esc(shareUrl)}">Open in AIF Reader →</a></p>
+</div>
+<script>setTimeout(function(){window.location.href="${esc(shareUrl)}"},1500)</script>
 </body>
 </html>`);
 });

@@ -22,6 +22,7 @@ export interface ItemFeedMeta {
 
 export default function ItemCard({ item, feed }: { item: ReaderItem; feed?: ItemFeedMeta }) {
   const [open, setOpen] = useState(false);
+  const [shared, setShared] = useState(false);
   const domainCls = DOMAIN_COLORS[feed?.domain ?? "general"] ?? DOMAIN_COLORS.general;
 
   function copyContext() {
@@ -99,13 +100,26 @@ export default function ItemCard({ item, feed }: { item: ReaderItem; feed?: Item
               <span className="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300">{item.agent_model}</span>
             )}
             <button
-              onClick={() => {
-                const url = `${window.location.origin}/items/${item.id}`;
-                void navigator.clipboard.writeText(url);
+              onClick={async () => {
+                const url = `${window.location.origin}/share/items/${item.id}`;
+                try {
+                  await navigator.clipboard.writeText(url);
+                } catch {
+                  const ta = document.createElement("textarea");
+                  ta.value = url;
+                  ta.style.position = "fixed";
+                  ta.style.opacity = "0";
+                  document.body.appendChild(ta);
+                  ta.select();
+                  document.execCommand("copy");
+                  ta.remove();
+                }
+                setShared(true);
+                setTimeout(() => setShared(false), 2000);
               }}
-              className="ml-auto text-xs px-3 py-1 rounded border border-slate-700 text-slate-200"
+              className={`ml-auto text-xs px-3 py-1 rounded border ${shared ? "border-emerald-500 text-emerald-400" : "border-slate-700 text-slate-200"}`}
             >
-              Share
+              {shared ? "Link copied ✓" : "Share"}
             </button>
             <button
               onClick={copyContext}
