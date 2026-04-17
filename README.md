@@ -218,7 +218,9 @@ Full spec: [`protocol/AIF-SPEC.md`](./protocol/AIF-SPEC.md) · JSON Schema: [`pr
 |---------------|-----|
 | Browse feeds | [Registry](https://aif-reader.web.app/registry) or [Discover](https://aif-reader.web.app/discover) |
 | Subscribe | Click Subscribe on any feed card |
-| Read your stream | [All Items](https://aif-reader.web.app) — unified stream across subscriptions |
+| See what's trending | [Intelligence Pulse](https://aif-reader.web.app) — the reader home page with trending signals, domain activity, and high-confidence items |
+| Read your stream | [My Stream](https://aif-reader.web.app/stream) — unified stream across subscriptions |
+| Get notified | Set up webhook or email notifications for new items in your subscribed feeds |
 | Inject into AI | Install the extension → open Claude/ChatGPT → click Inject |
 | Share an item | Expand item → Share → paste the link (shows a rich card preview on social) |
 
@@ -243,6 +245,9 @@ POST   /api/v1/feeds/hosted             Create platform-hosted feed
 POST   /api/v1/feeds/:id/items          Publish items (JWT or API key)
 POST   /api/v1/feeds/:id/subscribe      Subscribe
 GET    /api/v1/me/feed                  Unified item stream
+GET    /api/v1/insights                 Trending signals, domain breakdown, high-confidence items
+GET    /api/v1/me/notifications          Notification channels (webhook + email)
+POST   /api/v1/me/notifications          Create a notification channel
 GET    /api/v1/stats                    Platform stats
 GET    /feeds/:id/aif.json              Canonical AIF JSON
 GET    /share/items/:id                 Share page with OG card

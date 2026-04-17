@@ -109,6 +109,55 @@ Body: `{ "feed_id", "label": "optional" }`. Returns `{ api_key, key }` — the `
 
 ### `DELETE /me/api-keys/:id` (auth)
 
+## Insights
+
+### `GET /insights`
+
+Public. Returns aggregated intelligence data across all feeds:
+
+```json
+{
+  "trending_signals": [{ "signal": "GPT-5", "count": 42, "delta": 12 }],
+  "domain_breakdown": [{ "domain": "research", "item_count": 180, "feed_count": 15 }],
+  "high_confidence_items": [{ "id": "…", "title": "…", "confidence": 0.95, "feed_title": "…" }],
+  "most_active_feeds": [{ "id": "…", "title": "…", "items_last_24h": 8 }]
+}
+```
+
+## Notifications
+
+### `GET /me/notifications` (auth)
+
+Returns `{ channels: NotificationChannel[] }`. Each channel has `id`, `type` (`webhook` | `email`), `config`, `created_at`, `updated_at`.
+
+### `POST /me/notifications` (auth)
+
+Create a notification channel. Body:
+
+```json
+{ "type": "webhook", "config": { "url": "https://hooks.slack.com/…" } }
+```
+
+or:
+
+```json
+{ "type": "email", "config": { "address": "you@example.com" } }
+```
+
+Returns `{ channel }`. A welcome / test message is sent immediately to confirm the channel works.
+
+### `PATCH /me/notifications/:id` (auth)
+
+Update a channel's config. Body: `{ "config": { "url": "https://new-url.com" } }`.
+
+### `DELETE /me/notifications/:id` (auth)
+
+Remove a notification channel.
+
+### `POST /me/notifications/:id/test` (auth)
+
+Fire a test notification to the channel. Returns `{ ok: true }` on success, or a descriptive error if delivery fails.
+
 ## Stats
 
 ### `GET /stats`

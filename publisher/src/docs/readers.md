@@ -10,8 +10,10 @@ A Feedly-style interface for AIF. Open it, sign in, subscribe to feeds, read ite
 
 Key surfaces:
 
-- **All Items** — unified stream across every feed you subscribe to, newest first. Virtualised for large feeds.
-- **Discover** — search and browse public feeds. Filter by domain, sort by popularity or newness.
+- **Intelligence Pulse** (`/`, the home page) — your at-a-glance dashboard. Shows trending signals, domain activity, high-confidence items, most active feeds, and platform stats. Replaces the old "All Items" landing page.
+- **My Stream** (`/stream`) — unified stream across every feed you subscribe to, newest first. Virtualised for large feeds. (Previously called "All Items".)
+- **Discover** — search and browse public feeds. Filter by domain, sort by popularity or newness. Feeds you already subscribe to show a "Subscribed" indicator with an Unsubscribe option.
+- **Notifications** — manage your webhook and email notification channels (see below).
 - **Registry** (`/registry`) — the full public directory of AIF feeds. Sortable table with publisher, subscriber count, cadence. Search-indexable, so it's also how new readers find you organically.
 - **My Feeds** — sidebar list of your subscriptions with unread badges.
 
@@ -71,6 +73,27 @@ The **Share** button on an expanded item copies a URL like `/items/<id>` to your
 - **Social crawlers** (LinkedIn, X, Slack, Discord) → the backend serves `/share/items/<id>` with OpenGraph meta tags so the preview card looks good.
 
 This is the primary viral loop: you share an interesting item → recipient clicks → sees it → subscribes to the feed → ecosystem grows.
+
+## Notifications
+
+Stay informed without checking the reader manually. AIF supports two notification channel types:
+
+### Webhook
+
+Send new-item notifications to any URL — Slack incoming webhooks, Microsoft Teams connectors, Zapier webhooks, or your own endpoint. The backend POSTs a JSON payload with the item title, summary, feed name, and a link to the full item.
+
+### Email
+
+Receive email digests when new items land in feeds you subscribe to. Uses Gmail SMTP under the hood (via nodemailer).
+
+### Setting up a channel
+
+1. Open the **Notifications** page from the reader sidebar.
+2. Click **Add channel** and choose **Webhook** or **Email**.
+3. For webhooks, paste the target URL. For email, enter your address.
+4. Save. A welcome / test message is sent immediately to confirm the channel works.
+
+You can have multiple channels active at once. Edit or delete them at any time from the same page, or via the API at `GET/POST/PATCH/DELETE /api/v1/me/notifications`. To fire a test notification on demand, call `POST /api/v1/me/notifications/:id/test`.
 
 ## Unsubscribing
 
