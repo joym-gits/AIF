@@ -1,0 +1,5 @@
+# Every file in this repo requires review from @joym-gits
+# This is enforced by the branch protection rules on main and dev.
+# See: https://github.com/joym-gits/AIF/settings/branches
+
+*                         @joym-gits
