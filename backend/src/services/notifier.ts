@@ -1,3 +1,4 @@
+import nodemailer from "nodemailer";
 import { supabaseAdmin } from "../supabase";
 import { logger } from "../lib/logger";
 import { env } from "../env";
@@ -159,31 +160,25 @@ async function sendEmail(
 </body>
 </html>`;
 
-  const emailProvider = env.EMAIL_PROVIDER_URL;
-  if (!emailProvider) {
-    logger.warn({ channelId: ch.id }, "email notification skipped — no EMAIL_PROVIDER_URL configured");
+  if (!env.SMTP_USER || !env.SMTP_PASS) {
+    logger.warn({ channelId: ch.id }, "email notification skipped — SMTP_USER/SMTP_PASS not configured");
     return;
   }
 
-  const from = env.EMAIL_FROM || "AIF <onboarding@resend.dev>";
-  const res = await fetch(emailProvider, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${env.EMAIL_PROVIDER_KEY}`,
-    },
-    body: JSON.stringify({
-      from,
-      to: [email],
-      subject: `${feedTitle} — ${items.length} new item${items.length > 1 ? "s" : ""}`,
-      html,
-    }),
-    signal: AbortSignal.timeout(10_000),
+  const transporter = nodemailer.createTransport({
+    host: env.SMTP_HOST,
+    port: env.SMTP_PORT,
+    secure: env.SMTP_PORT === 465,
+    auth: { user: env.SMTP_USER, pass: env.SMTP_PASS },
   });
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Email API returned ${res.status}: ${body}`);
-  }
+
+  const from = env.EMAIL_FROM || `AIF Notifications <${env.SMTP_USER}>`;
+  await transporter.sendMail({
+    from,
+    to: email,
+    subject: `${feedTitle} — ${items.length} new item${items.length > 1 ? "s" : ""}`,
+    html,
+  });
   logger.info({ channelId: ch.id, to: email, items: items.length }, "email sent");
 }
 
