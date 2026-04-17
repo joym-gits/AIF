@@ -140,6 +140,17 @@ export default function FeedDetail() {
         </div>
         <div className="border-t border-slate-800 pt-4">
           <div className="text-xs uppercase text-slate-400 mb-2">"Powered by AIF" badge</div>
+          <div className="flex items-center gap-4 mb-3 p-3 bg-bg rounded">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-card border border-slate-700 rounded-md">
+              <div className="w-5 h-5 rounded bg-brand flex items-center justify-center text-[7px] font-extrabold text-white">AIF</div>
+              <span className="text-xs"><span className="text-brand font-semibold">Powered by AIF</span><span className="text-slate-500 ml-1">· AI Intelligence Feed</span></span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2 py-1.5 bg-card border border-slate-700 rounded-md">
+              <div className="w-5 h-5 rounded bg-brand flex items-center justify-center text-[7px] font-extrabold text-white">AIF</div>
+              <span className="text-xs font-semibold text-slate-400">AIF</span>
+            </div>
+            <div className="w-6 h-6 rounded bg-brand flex items-center justify-center text-[8px] font-extrabold text-white">AIF</div>
+          </div>
           <pre className="text-xs bg-bg p-3 rounded whitespace-pre-wrap">{badgeHtml}</pre>
           <button
             onClick={() => navigator.clipboard.writeText(badgeHtml)}
