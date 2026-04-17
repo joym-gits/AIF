@@ -78,8 +78,12 @@ export default function FeedDetail() {
   if (err) return <p className="text-rose-400">{err}</p>;
   if (!feed) return <p className="text-slate-500">Loading…</p>;
 
+  const backendUrl = import.meta.env.VITE_API_URL ?? "";
   const subscribeHtml = `<a href="aif://subscribe?url=${feed.feed_url}" class="aif-subscribe-btn">Subscribe on AIF</a>
-<script src="https://aif.dev/widget.js" async></script>`;
+<script src="${backendUrl}/widget/aif-widget.js" async></script>`;
+
+  const badgeHtml = `<div class="aif-badge" data-feed-url="${feed.feed_url}" data-theme="dark"></div>
+<script src="${backendUrl}/widget/aif-badge.js" async></script>`;
 
   return (
     <div className="space-y-6">
@@ -125,13 +129,30 @@ export default function FeedDetail() {
         </div>
       </div>
 
-      <div className="bg-card border border-slate-800 rounded p-4">
-        <div className="text-xs uppercase text-slate-400 mb-2">Embed subscribe button</div>
-        <pre className="text-xs bg-bg p-3 rounded whitespace-pre-wrap">{subscribeHtml}</pre>
-        <button
-          onClick={() => navigator.clipboard.writeText(subscribeHtml)}
-          className="mt-2 px-2 py-1 text-xs bg-brand rounded text-white"
-        >Copy snippet</button>
+      <div className="bg-card border border-slate-800 rounded p-4 space-y-4">
+        <div>
+          <div className="text-xs uppercase text-slate-400 mb-2">Embed subscribe button</div>
+          <pre className="text-xs bg-bg p-3 rounded whitespace-pre-wrap">{subscribeHtml}</pre>
+          <button
+            onClick={() => navigator.clipboard.writeText(subscribeHtml)}
+            className="mt-2 px-2 py-1 text-xs bg-brand rounded text-white"
+          >Copy snippet</button>
+        </div>
+        <div className="border-t border-slate-800 pt-4">
+          <div className="text-xs uppercase text-slate-400 mb-2">"Powered by AIF" badge</div>
+          <pre className="text-xs bg-bg p-3 rounded whitespace-pre-wrap">{badgeHtml}</pre>
+          <button
+            onClick={() => navigator.clipboard.writeText(badgeHtml)}
+            className="mt-2 px-2 py-1 text-xs bg-brand rounded text-white"
+          >Copy snippet</button>
+          <p className="text-xs text-slate-500 mt-2">
+            Styles: <code className="bg-bg px-1 rounded">data-style="full"</code> (default),{" "}
+            <code className="bg-bg px-1 rounded">"compact"</code>, or{" "}
+            <code className="bg-bg px-1 rounded">"icon"</code>.{" "}
+            Themes: <code className="bg-bg px-1 rounded">data-theme="dark"</code> or{" "}
+            <code className="bg-bg px-1 rounded">"light"</code>.
+          </p>
+        </div>
       </div>
 
       <ConnectAgentPanel feedId={feed.id} />
