@@ -3,8 +3,14 @@ import * as cheerio from "cheerio";
 import Parser from "rss-parser";
 import type { AgentSource } from "./config";
 
-const rssParser = new Parser();
+const UA = "Mozilla/5.0 (compatible; AIF-Agent/1.0; +https://aif.dev)";
+const rssParser = new Parser({
+  headers: { "User-Agent": UA },
+  timeout: 15_000,
+});
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+const MAX_SOURCE_CHARS = 12_000;
+const MAX_TOTAL_CHARS = 40_000;
 
 export interface SourceContent {
   label: string;
@@ -16,12 +22,16 @@ export async function gatherSources(sources: AgentSource[]): Promise<SourceConte
   for (const s of sources) {
     try {
       const content = s.type === "rss" ? await fetchRss(s.url) : await fetchUrl(s.url);
-      if (content.trim()) results.push({ label: s.url, text: content });
+      if (content.trim()) results.push({ label: s.url, text: content.slice(0, MAX_SOURCE_CHARS) });
     } catch (err) {
       console.warn(`[sources] failed to fetch ${s.url}:`, (err as Error).message);
     }
   }
-  return results;
+  let total = 0;
+  return results.filter((r) => {
+    total += r.text.length;
+    return total <= MAX_TOTAL_CHARS;
+  });
 }
 
 async function fetchRss(url: string): Promise<string> {
@@ -37,7 +47,11 @@ async function fetchRss(url: string): Promise<string> {
 }
 
 async function fetchUrl(url: string): Promise<string> {
-  const res = await axios.get<string>(url, { timeout: 15_000, responseType: "text" });
+  const res = await axios.get<string>(url, {
+    timeout: 15_000,
+    responseType: "text",
+    headers: { "User-Agent": UA },
+  });
   const $ = cheerio.load(res.data);
   $("script, style, nav, footer, header").remove();
   const text = $("main").text() || $("body").text();
