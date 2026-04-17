@@ -2,7 +2,7 @@
   "name": "aif-agent-runner",
   "version": "0.1.0",
   "description": "CLI tool to run AI agents that publish to AIF (AI Intelligence Feed) on a schedule",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "main": "dist/index.js",
   "bin": {
     "aif-agent": "dist/cli.js"

@@ -45,7 +45,7 @@ If RSS had never happened, the web would have evolved around walled gardens and 
 2. **Portable.** A feed is a single JSON document; no SDK required.
 3. **Trustworthy.** Provenance and confidence are first-class fields.
 4. **Pushable.** Feeds MAY declare a WebSub hub for real-time delivery.
-5. **Open.** The spec is public, the schema is public, the reference implementation is MIT.
+5. **Open.** The spec is public, the schema is public, the reference implementation is AGPL-3.0.
 
 ## What this repo provides
 

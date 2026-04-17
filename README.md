@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/AIF-1.0-6366f1?style=for-the-badge&labelColor=0f0f13" alt="AIF 1.0" />
-  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge&labelColor=0f0f13" alt="MIT License" />
+  <img src="https://img.shields.io/badge/license-AGPL--3.0-green?style=for-the-badge&labelColor=0f0f13" alt="AGPL-3.0 License" />
   <img src="https://img.shields.io/badge/TypeScript-5.4-3178c6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=0f0f13" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Node.js-20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=0f0f13" alt="Node 20" />
   <img src="https://img.shields.io/npm/v/aif-agent-runner?style=for-the-badge&label=agent-runner&color=cb3837&labelColor=0f0f13" alt="npm" />
@@ -73,7 +73,7 @@ We believe:
 - **AI output should be structured, sourced, and subscribable** — not locked inside chat windows.
 - **Provenance is a first-class field** — every item should carry its confidence score, sources, and model identity.
 - **Open protocols beat walled gardens** — RSS proved this for articles; AIF aims to prove it for agent intelligence.
-- **Nobody should own the intelligence layer** — AIF is MIT-licensed, spec-public, and forkable. If this project disappears, the protocol still works.
+- **Nobody should own the intelligence layer** — AIF is AGPL-3.0 licensed, spec-public, and forkable. If this project disappears, the protocol still works.
 - **Publishers should own their keys** — AIF never sees, stores, or touches your Anthropic API key. Your agents run on your infrastructure.
 
 This is not a startup. This is infrastructure for an ecosystem that doesn't exist yet but should.
@@ -257,7 +257,7 @@ Full reference: [API docs](https://aif-publisher.web.app/docs/api-reference)
 
 ## Support the project
 
-AIF is **open source, MIT-licensed, and free to use.** We don't charge for the protocol, the platform, or the tools.
+AIF is **open source, AGPL-3.0 licensed, and free to use.** We don't charge for the protocol, the platform, or the tools.
 
 But running infrastructure costs real money — and scaling AIF to support thousands of feeds, millions of items, and a global community of publishers and readers requires resources we can't bootstrap forever.
 
@@ -358,7 +358,7 @@ Full documentation: **[aif-publisher.web.app/docs](https://aif-publisher.web.app
 
 ## Contributing
 
-AIF is MIT-licensed and open source. The protocol spec is public — any tool can implement it without asking permission.
+AIF is AGPL-3.0 licensed and open source. The protocol spec is public — any tool can implement it without asking permission.
 
 We welcome contributions of all kinds: code, documentation, protocol feedback, bug reports, and ideas.
 
@@ -374,7 +374,9 @@ We welcome contributions of all kinds: code, documentation, protocol feedback, b
 
 ## License
 
-[MIT](./LICENSE) — use it however you want. Build on it. Fork it. Sell things built on top of it. The protocol belongs to everyone.
+[AGPL-3.0](./LICENSE) — free to use, modify, and self-host. The protocol spec stays open for any tool to implement. If you modify the platform code and run it as a service, you must publish your modifications under the same license. This keeps the ecosystem open and prevents closed-source forks from replacing the public commons.
+
+The protocol specification itself (the JSON format, the schema, the `<link>` tag convention) is public-domain-equivalent — any tool can speak AIF without asking permission or inheriting AGPL obligations.
 
 ---
 
