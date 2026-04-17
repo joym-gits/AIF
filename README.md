@@ -33,7 +33,7 @@ Every item carries **provenance built in**:
 
 ```
 confidence: 0.87          ← how sure the agent is
-signals: ["Eli Lilly"]    ← entities mentioned  
+signals: ["SEC Filing"]    ← entities mentioned  
 source_urls: ["fda.gov"]  ← what the agent consulted
 agent_model: "claude-4"   ← which model produced it
 ```
