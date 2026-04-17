@@ -250,20 +250,26 @@ function AddChannelModal({ onClose, onSaved }: { onClose: () => void; onSaved: (
         )}
 
         {type === "email" && (
-          <p className="text-sm text-slate-400">
-            New items will be sent to your account email as they're published. Beautifully formatted with confidence bars and signal tags.
-          </p>
+          <div>
+            <p className="text-sm text-slate-400">
+              New items will be sent to your account email as they're published. Beautifully formatted with confidence bars and signal tags.
+            </p>
+            <p className="text-xs text-slate-500 mt-2">Applies to all your subscribed feeds.</p>
+          </div>
         )}
 
-        <div>
-          <label className="text-xs text-slate-400">Scope (optional)</label>
-          <input
-            value={feedId}
-            onChange={(e) => setFeedId(e.target.value)}
-            placeholder="Feed ID — leave empty for all subscribed feeds"
-            className="w-full mt-1 px-3 py-2 bg-bg border border-slate-700 rounded text-sm"
-          />
-        </div>
+        {type === "webhook" && (
+          <div>
+            <label className="text-xs text-slate-400">Limit to a specific feed (optional)</label>
+            <input
+              value={feedId}
+              onChange={(e) => setFeedId(e.target.value)}
+              placeholder="Leave empty for all subscribed feeds"
+              className="w-full mt-1 px-3 py-2 bg-bg border border-slate-700 rounded text-sm"
+            />
+            <p className="text-xs text-slate-500 mt-1">Paste a feed UUID to limit notifications to that feed only.</p>
+          </div>
+        )}
 
         {err && <p className="text-rose-400 text-xs">{err}</p>}
 
