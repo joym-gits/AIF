@@ -1,256 +1,297 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" width="1400" height="1050" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif">
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1"/>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6366f1"/>
     </marker>
-    <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#22c55e"/>
     </marker>
-    <filter id="shadow" x="-4%" y="-4%" width="108%" height="108%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    <marker id="arr-y" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-s" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#64748b"/>
+    </marker>
+    <filter id="sh" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#000" flood-opacity="0.25"/>
     </filter>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="900" fill="#0f0f13"/>
+  <rect width="1400" height="1050" fill="#0a0a0f"/>
 
   <!-- Title -->
-  <text x="600" y="44" text-anchor="middle" font-size="24" font-weight="700" fill="#e2e8f0">AIF System Architecture</text>
-  <text x="600" y="68" text-anchor="middle" font-size="13" fill="#64748b">AI Intelligence Feed — Open Protocol for AI-Generated Intelligence Streams</text>
+  <text x="700" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#e2e8f0">AIF — System Design</text>
+  <text x="700" y="56" text-anchor="middle" font-size="12" fill="#4a5568">AI Intelligence Feed · Open Protocol for AI-Generated Intelligence Streams</text>
 
-  <!-- ═══════════ SECTION: DATA SOURCES (left) ═══════════ -->
-  <text x="80" y="120" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">DATA SOURCES</text>
+  <!-- ══ PUBLISHER SIDE ══ -->
+  <rect x="20" y="75" width="420" height="340" rx="12" fill="#0f0f15" stroke="#1e293b" stroke-width="1"/>
+  <text x="40" y="98" font-size="11" fill="#64748b" font-weight="600" letter-spacing="2">PUBLISHER INFRASTRUCTURE</text>
+  <text x="40" y="113" font-size="9" fill="#334155">User-owned · Keys never leave this boundary</text>
 
-  <rect x="40" y="138" width="180" height="44" rx="8" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
-  <text x="60" y="165" font-size="13" fill="#e2e8f0">RSS Feeds</text>
-  <text x="170" y="165" font-size="10" fill="#64748b" text-anchor="end">arXiv, HN, BBC</text>
+  <rect x="40" y="130" width="150" height="36" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="52" y="153" font-size="12" fill="#e2e8f0">RSS Feeds</text>
+  <text x="178" y="153" font-size="9" fill="#4a5568" text-anchor="end">arXiv, BBC, HN</text>
 
-  <rect x="40" y="192" width="180" height="44" rx="8" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
-  <text x="60" y="219" font-size="13" fill="#e2e8f0">Web Pages</text>
-  <text x="170" y="219" font-size="10" fill="#64748b" text-anchor="end">FDA, SEC, WHO</text>
+  <rect x="40" y="174" width="150" height="36" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="52" y="197" font-size="12" fill="#e2e8f0">Web Pages</text>
+  <text x="178" y="197" font-size="9" fill="#4a5568" text-anchor="end">FDA, WHO, SEC</text>
 
-  <rect x="40" y="246" width="180" height="44" rx="8" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
-  <text x="60" y="273" font-size="13" fill="#e2e8f0">APIs</text>
-  <text x="170" y="273" font-size="10" fill="#64748b" text-anchor="end">any HTTPS source</text>
+  <rect x="40" y="218" width="150" height="36" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="52" y="241" font-size="12" fill="#e2e8f0">Custom APIs</text>
+  <text x="178" y="241" font-size="9" fill="#4a5568" text-anchor="end">any HTTPS</text>
 
-  <!-- ═══════════ SECTION: AGENT RUNNER (center-left) ═══════════ -->
-  <text x="330" y="120" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">AGENT RUNNER</text>
-  <text x="330" y="135" font-size="9" fill="#4a5568">npm: aif-agent-runner</text>
+  <rect x="230" y="125" width="190" height="185" rx="10" fill="#1e1b2e" stroke="#6366f1" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="248" y="147" font-size="10" fill="#6366f1" font-weight="600">aif-agent-runner</text>
+  <text x="248" y="160" font-size="8" fill="#4a5568">npm package · user installs</text>
+  <rect x="244" y="172" width="162" height="28" rx="5" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
+  <text x="325" y="191" text-anchor="middle" font-size="10" fill="#c4b5fd">Source Fetcher</text>
+  <rect x="244" y="206" width="162" height="28" rx="5" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
+  <text x="325" y="225" text-anchor="middle" font-size="10" fill="#c4b5fd">Anthropic API (Claude)</text>
+  <rect x="244" y="240" width="162" height="28" rx="5" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
+  <text x="325" y="259" text-anchor="middle" font-size="10" fill="#c4b5fd">Item Publisher</text>
+  <rect x="244" y="274" width="162" height="28" rx="5" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
+  <text x="325" y="293" text-anchor="middle" font-size="10" fill="#c4b5fd">JSON Parser + Validator</text>
 
-  <rect x="290" y="148" width="220" height="160" rx="12" fill="#1e1b2e" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <line x1="190" y1="148" x2="226" y2="186" stroke="#6366f1" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="190" y1="192" x2="226" y2="210" stroke="#6366f1" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="190" y1="236" x2="226" y2="235" stroke="#6366f1" stroke-width="1.2" marker-end="url(#arr)"/>
 
-  <rect x="308" y="168" width="184" height="34" rx="6" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
-  <text x="400" y="190" text-anchor="middle" font-size="12" fill="#c4b5fd" font-weight="600">Source Fetcher</text>
+  <rect x="40" y="275" width="170" height="52" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
+  <text x="52" y="295" font-size="10" fill="#94a3b8" font-weight="500">Scheduling</text>
+  <text x="52" y="310" font-size="9" fill="#4a5568">GitHub Actions · Local cron</text>
+  <text x="52" y="322" font-size="9" fill="#4a5568">Any CI/CD · Docker</text>
 
-  <rect x="308" y="212" width="184" height="34" rx="6" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
-  <text x="400" y="234" text-anchor="middle" font-size="12" fill="#c4b5fd" font-weight="600">Claude / Anthropic API</text>
+  <rect x="40" y="340" width="380" height="26" rx="4" fill="#1c0808" stroke="#7f1d1d" stroke-width="1"/>
+  <text x="230" y="358" text-anchor="middle" font-size="9" fill="#fca5a5">Anthropic key + AIF API key stored here (GitHub Secrets / .env) — never sent to AIF</text>
 
-  <rect x="308" y="256" width="184" height="34" rx="6" fill="#2a2440" stroke="#4f46e5" stroke-width="1"/>
-  <text x="400" y="278" text-anchor="middle" font-size="12" fill="#c4b5fd" font-weight="600">Item Publisher</text>
+  <text x="460" y="225" font-size="9" fill="#6366f1" font-weight="600">POST /feeds/:id/items</text>
+  <text x="460" y="237" font-size="8" fill="#4a5568">Bearer aif_sk_…</text>
 
-  <!-- Arrows: sources → agent -->
-  <line x1="220" y1="160" x2="285" y2="185" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="220" y1="214" x2="285" y2="210" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="220" y1="268" x2="285" y2="240" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- ══ AIF PLATFORM ══ -->
+  <rect x="460" y="75" width="480" height="580" rx="12" fill="#0f0f15" stroke="#22c55e" stroke-width="1"/>
+  <text x="480" y="98" font-size="11" fill="#22c55e" font-weight="600" letter-spacing="2">AIF PLATFORM</text>
+  <text x="480" y="113" font-size="9" fill="#334155">Google Cloud Run · Firebase Hosting</text>
 
-  <!-- User's infra label -->
-  <rect x="270" y="320" width="260" height="24" rx="4" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
-  <text x="400" y="337" text-anchor="middle" font-size="10" fill="#94a3b8">Runs on user's infra (GitHub Actions / local)</text>
+  <rect x="480" y="128" width="220" height="260" rx="10" fill="#0a1a0f" stroke="#16a34a" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="496" y="148" font-size="10" fill="#22c55e" font-weight="600">Backend API</text>
+  <text x="496" y="161" font-size="8" fill="#334155">Express · TypeScript · Cloud Run</text>
+  <rect x="492" y="170" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="187" text-anchor="middle" font-size="9" fill="#86efac">Auth (JWT + API Keys)</text>
+  <rect x="492" y="200" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="217" text-anchor="middle" font-size="9" fill="#86efac">Feed Registry (CRUD)</text>
+  <rect x="492" y="230" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="247" text-anchor="middle" font-size="9" fill="#86efac">AIF JSON Server</text>
+  <rect x="492" y="260" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="277" text-anchor="middle" font-size="9" fill="#86efac">Insights Engine (Pulse)</text>
+  <rect x="492" y="290" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="307" text-anchor="middle" font-size="9" fill="#86efac">Share Card Generator (SVG→PNG)</text>
+  <rect x="492" y="320" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="337" text-anchor="middle" font-size="9" fill="#86efac">Rate Limiter + pino Logging</text>
+  <rect x="492" y="350" width="196" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="590" y="367" text-anchor="middle" font-size="9" fill="#86efac">Feed Refresh Scheduler</text>
 
-  <!-- ═══════════ SECTION: BACKEND (center) ═══════════ -->
-  <text x="620" y="120" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">AIF BACKEND</text>
-  <text x="620" y="135" font-size="9" fill="#4a5568">Express + Supabase · Cloud Run</text>
+  <line x1="420" y1="254" x2="476" y2="230" stroke="#6366f1" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="560" y="148" width="300" height="320" rx="12" fill="#1a1a24" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
+  <!-- Notification engine -->
+  <rect x="720" y="128" width="200" height="170" rx="10" fill="#1a1520" stroke="#8b5cf6" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="736" y="148" font-size="10" fill="#8b5cf6" font-weight="600">Notification Engine</text>
+  <text x="736" y="161" font-size="8" fill="#334155">Fire-and-forget on publish</text>
+  <rect x="732" y="172" width="176" height="24" rx="4" fill="#1e1530" stroke="#7c3aed" stroke-width="1"/>
+  <text x="820" y="189" text-anchor="middle" font-size="9" fill="#c4b5fd">Webhook Dispatcher</text>
+  <rect x="732" y="202" width="176" height="24" rx="4" fill="#1e1530" stroke="#7c3aed" stroke-width="1"/>
+  <text x="820" y="219" text-anchor="middle" font-size="9" fill="#c4b5fd">Email Sender (Gmail SMTP)</text>
+  <rect x="732" y="232" width="176" height="24" rx="4" fill="#1e1530" stroke="#7c3aed" stroke-width="1"/>
+  <text x="820" y="249" text-anchor="middle" font-size="9" fill="#c4b5fd">Welcome Messages</text>
+  <rect x="732" y="262" width="176" height="24" rx="4" fill="#1e1530" stroke="#7c3aed" stroke-width="1"/>
+  <text x="820" y="279" text-anchor="middle" font-size="9" fill="#c4b5fd">Channel Management</text>
 
-  <!-- API routes -->
-  <rect x="578" y="168" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="189" font-size="11" fill="#86efac" font-weight="600">REST API</text>
-  <text x="830" y="189" font-size="10" fill="#4ade80" text-anchor="end">/api/v1/*</text>
+  <line x1="700" y1="220" x2="728" y2="220" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="714" y="212" font-size="7" fill="#8b5cf6">trigger</text>
 
-  <rect x="578" y="212" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="233" font-size="11" fill="#86efac" font-weight="600">Auth Middleware</text>
-  <text x="830" y="233" font-size="10" fill="#4ade80" text-anchor="end">JWT + API Keys</text>
+  <!-- Widgets -->
+  <rect x="720" y="315" width="200" height="75" rx="8" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="736" y="335" font-size="10" fill="#94a3b8" font-weight="500">Embeddable Widgets</text>
+  <rect x="732" y="345" width="82" height="20" rx="4" fill="#2a2440" stroke="#6366f1" stroke-width="1"/>
+  <text x="773" y="359" text-anchor="middle" font-size="8" fill="#c4b5fd">Subscribe</text>
+  <rect x="822" y="345" width="86" height="20" rx="4" fill="#2a2440" stroke="#6366f1" stroke-width="1"/>
+  <text x="865" y="359" text-anchor="middle" font-size="8" fill="#c4b5fd">Powered by</text>
+  <text x="736" y="382" font-size="8" fill="#4a5568">aif-widget.js · aif-badge.js</text>
 
-  <rect x="578" y="256" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="277" font-size="11" fill="#86efac" font-weight="600">Feed Registry</text>
-  <text x="830" y="277" font-size="10" fill="#4ade80" text-anchor="end">CRUD + validation</text>
+  <!-- Database -->
+  <rect x="480" y="410" width="440" height="120" rx="10" fill="#1a1a24" stroke="#f59e0b" stroke-width="1.5" filter="url(#sh)"/>
+  <text x="496" y="430" font-size="10" fill="#f59e0b" font-weight="600">Supabase</text>
+  <text x="496" y="443" font-size="8" fill="#334155">PostgreSQL + Auth</text>
+  <rect x="496" y="452" width="90" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="541" y="468" text-anchor="middle" font-size="9" fill="#fcd34d">feeds</text>
+  <rect x="596" y="452" width="90" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="641" y="468" text-anchor="middle" font-size="9" fill="#fcd34d">feed_items</text>
+  <rect x="696" y="452" width="100" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="746" y="468" text-anchor="middle" font-size="9" fill="#fcd34d">subscriptions</text>
+  <rect x="806" y="452" width="100" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="856" y="468" text-anchor="middle" font-size="9" fill="#fcd34d">api_keys</text>
+  <rect x="496" y="482" width="90" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="541" y="498" text-anchor="middle" font-size="9" fill="#fcd34d">profiles</text>
+  <rect x="596" y="482" width="90" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="641" y="498" text-anchor="middle" font-size="9" fill="#fcd34d">auth.users</text>
+  <rect x="696" y="482" width="100" height="22" rx="4" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="746" y="498" text-anchor="middle" font-size="9" fill="#fcd34d">notif_channels</text>
+  <line x1="590" y1="390" x2="590" y2="406" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-y)"/>
 
-  <rect x="578" y="300" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="321" font-size="11" fill="#86efac" font-weight="600">AIF JSON Server</text>
-  <text x="830" y="321" font-size="10" fill="#4ade80" text-anchor="end">/feeds/:id/aif.json</text>
+  <!-- Secrets -->
+  <rect x="480" y="548" width="440" height="48" rx="8" fill="#1a1a24" stroke="#ef4444" stroke-width="1" filter="url(#sh)"/>
+  <text x="496" y="568" font-size="10" fill="#ef4444" font-weight="500">GCP Secret Manager</text>
+  <rect x="640" y="555" width="80" height="18" rx="3" fill="#1c0808" stroke="#991b1b" stroke-width="1"/>
+  <text x="680" y="568" text-anchor="middle" font-size="7" fill="#fca5a5">Supabase keys</text>
+  <rect x="728" y="555" width="70" height="18" rx="3" fill="#1c0808" stroke="#991b1b" stroke-width="1"/>
+  <text x="763" y="568" text-anchor="middle" font-size="7" fill="#fca5a5">SMTP_PASS</text>
+  <rect x="806" y="555" width="100" height="18" rx="3" fill="#1c0808" stroke="#991b1b" stroke-width="1"/>
+  <text x="856" y="568" text-anchor="middle" font-size="7" fill="#fca5a5">Encryption keys</text>
 
-  <rect x="578" y="344" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="365" font-size="11" fill="#86efac" font-weight="600">Share Card Generator</text>
-  <text x="830" y="365" font-size="10" fill="#4ade80" text-anchor="end">OG image + meta</text>
+  <!-- ══ CONSUMER APPS ══ -->
+  <rect x="960" y="75" width="420" height="340" rx="12" fill="#0f0f15" stroke="#3b82f6" stroke-width="1"/>
+  <text x="980" y="98" font-size="11" fill="#3b82f6" font-weight="600" letter-spacing="2">CONSUMER APPS</text>
+  <text x="980" y="113" font-size="9" fill="#334155">Firebase Hosting · Chrome Web Store</text>
 
-  <rect x="578" y="388" width="264" height="34" rx="6" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="590" y="409" font-size="11" fill="#86efac" font-weight="600">Feed Refresh Scheduler</text>
-  <text x="830" y="409" font-size="10" fill="#4ade80" text-anchor="end">node-cron · 15min</text>
+  <rect x="980" y="128" width="190" height="60" rx="8" fill="#1a1a24" stroke="#6366f1" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="992" y="135" width="30" height="16" rx="3" fill="#6366f1"/>
+  <text x="1007" y="147" text-anchor="middle" font-size="7" fill="white" font-weight="700">PUB</text>
+  <text x="1030" y="147" font-size="11" fill="#e2e8f0" font-weight="600">Publisher</text>
+  <text x="992" y="165" font-size="9" fill="#4a5568">Feed mgmt · API keys · Badges</text>
+  <text x="992" y="177" font-size="8" fill="#334155">React 18 · Vite · Tailwind</text>
 
-  <rect x="578" y="432" width="126" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="641" y="449" text-anchor="middle" font-size="10" fill="#4ade80">Rate Limiter</text>
+  <rect x="980" y="198" width="190" height="70" rx="8" fill="#1a1a24" stroke="#3b82f6" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="992" y="205" width="30" height="16" rx="3" fill="#3b82f6"/>
+  <text x="1007" y="217" text-anchor="middle" font-size="7" fill="white" font-weight="700">READ</text>
+  <text x="1030" y="217" font-size="11" fill="#e2e8f0" font-weight="600">Reader</text>
+  <text x="992" y="237" font-size="9" fill="#4a5568">Intelligence Pulse · My Stream</text>
+  <text x="992" y="249" font-size="8" fill="#334155">Discover · Notifications</text>
+  <text x="992" y="260" font-size="8" fill="#334155">React 18 · TanStack Query</text>
 
-  <rect x="716" y="432" width="126" height="24" rx="4" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
-  <text x="779" y="449" text-anchor="middle" font-size="10" fill="#4ade80">pino Logging</text>
+  <rect x="980" y="278" width="190" height="58" rx="8" fill="#1a1a24" stroke="#f59e0b" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="992" y="285" width="30" height="16" rx="3" fill="#f59e0b"/>
+  <text x="1007" y="297" text-anchor="middle" font-size="7" fill="white" font-weight="700">EXT</text>
+  <text x="1030" y="297" font-size="11" fill="#e2e8f0" font-weight="600">Extension</text>
+  <text x="992" y="315" font-size="9" fill="#4a5568">Feed discovery · AI injection</text>
+  <text x="992" y="326" font-size="8" fill="#334155">Chrome MV3 · TypeScript</text>
 
-  <!-- Arrow: agent → backend -->
-  <line x1="510" y1="273" x2="555" y2="273" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="533" y="265" text-anchor="middle" font-size="9" fill="#6366f1">POST</text>
-  <text x="533" y="285" text-anchor="middle" font-size="8" fill="#4a5568">aif_sk_</text>
+  <line x1="940" y1="180" x2="976" y2="158" stroke="#6366f1" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="940" y1="240" x2="976" y2="233" stroke="#3b82f6" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="940" y1="310" x2="976" y2="307" stroke="#f59e0b" stroke-width="1.2" marker-end="url(#arr-y)"/>
 
-  <!-- ═══════════ SECTION: DATABASE (bottom center) ═══════════ -->
-  <text x="620" y="510" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">DATABASE</text>
-  <text x="620" y="525" font-size="9" fill="#4a5568">Supabase (Postgres + Auth)</text>
+  <!-- AI platforms -->
+  <rect x="1190" y="128" width="170" height="142" rx="8" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1206" y="148" font-size="10" fill="#64748b" font-weight="500">AI Platforms</text>
+  <text x="1206" y="161" font-size="8" fill="#334155">Context injection via extension</text>
+  <rect x="1202" y="172" width="72" height="24" rx="4" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="1238" y="189" text-anchor="middle" font-size="9" fill="#e2e8f0">Claude</text>
+  <rect x="1282" y="172" width="72" height="24" rx="4" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="1318" y="189" text-anchor="middle" font-size="9" fill="#e2e8f0">ChatGPT</text>
+  <rect x="1202" y="202" width="72" height="24" rx="4" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="1238" y="219" text-anchor="middle" font-size="9" fill="#e2e8f0">Gemini</text>
+  <rect x="1282" y="202" width="72" height="24" rx="4" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="1318" y="219" text-anchor="middle" font-size="9" fill="#e2e8f0">Mistral</text>
+  <rect x="1202" y="238" width="152" height="22" rx="4" fill="#1e1b2e" stroke="#6366f1" stroke-width="1"/>
+  <text x="1278" y="253" text-anchor="middle" font-size="8" fill="#c4b5fd">[AIF CONTEXT — feed — date]</text>
+  <line x1="1170" y1="307" x2="1188" y2="250" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr-y)"/>
+  <text x="1183" y="285" font-size="7" fill="#f59e0b">inject</text>
 
-  <rect x="560" y="538" width="300" height="140" rx="12" fill="#1a1a24" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <!-- ══ NOTIFICATION DELIVERY ══ -->
+  <rect x="960" y="430" width="420" height="175" rx="12" fill="#0f0f15" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="980" y="453" font-size="11" fill="#8b5cf6" font-weight="600" letter-spacing="2">NOTIFICATION DELIVERY</text>
+  <text x="980" y="468" font-size="9" fill="#334155">Triggered on every item publish</text>
+  <rect x="980" y="480" width="120" height="46" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1040" y="500" text-anchor="middle" font-size="10" fill="#e2e8f0">Slack</text>
+  <text x="1040" y="516" text-anchor="middle" font-size="8" fill="#4a5568">Webhook</text>
+  <rect x="1110" y="480" width="120" height="46" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1170" y="500" text-anchor="middle" font-size="10" fill="#e2e8f0">Teams</text>
+  <text x="1170" y="516" text-anchor="middle" font-size="8" fill="#4a5568">Webhook</text>
+  <rect x="1240" y="480" width="120" height="46" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1300" y="500" text-anchor="middle" font-size="10" fill="#e2e8f0">Zapier / Make</text>
+  <text x="1300" y="516" text-anchor="middle" font-size="8" fill="#4a5568">Webhook trigger</text>
+  <rect x="980" y="536" width="120" height="46" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1040" y="556" text-anchor="middle" font-size="10" fill="#e2e8f0">Email</text>
+  <text x="1040" y="572" text-anchor="middle" font-size="8" fill="#4a5568">Gmail SMTP</text>
+  <rect x="1110" y="536" width="120" height="46" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#sh)"/>
+  <text x="1170" y="556" text-anchor="middle" font-size="10" fill="#e2e8f0">Custom</text>
+  <text x="1170" y="572" text-anchor="middle" font-size="8" fill="#4a5568">Any HTTPS endpoint</text>
+  <rect x="1240" y="536" width="120" height="46" rx="6" fill="#1a1a24" stroke="#1e293b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="1300" y="556" text-anchor="middle" font-size="10" fill="#4a5568">Telegram</text>
+  <text x="1300" y="572" text-anchor="middle" font-size="8" fill="#334155">Phase 2</text>
+  <line x1="920" y1="250" x2="956" y2="490" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="6 3" marker-end="url(#arr)"/>
 
-  <rect x="578" y="556" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="641" y="575" text-anchor="middle" font-size="11" fill="#fcd34d">feeds</text>
+  <!-- ══ PROTOCOL ══ -->
+  <rect x="20" y="630" width="920" height="100" rx="12" fill="#0f0f15" stroke="#6366f1" stroke-width="1"/>
+  <text x="40" y="655" font-size="11" fill="#6366f1" font-weight="600" letter-spacing="2">AIF PROTOCOL 1.0</text>
+  <text x="40" y="670" font-size="9" fill="#334155">application/aif+json · HTTPS · JSON Schema</text>
+  <rect x="40" y="682" width="260" height="32" rx="5" fill="#1e1b2e" stroke="#4f46e5" stroke-width="1"/>
+  <text x="50" y="703" font-size="9" fill="#c4b5fd" font-family="monospace">{"aif":"1.0", "items":[…]}</text>
+  <rect x="320" y="682" width="260" height="32" rx="5" fill="#1e1b2e" stroke="#4f46e5" stroke-width="1"/>
+  <text x="330" y="703" font-size="9" fill="#c4b5fd" font-family="monospace">confidence · signals · source_urls</text>
+  <rect x="600" y="682" width="320" height="32" rx="5" fill="#1e1b2e" stroke="#4f46e5" stroke-width="1"/>
+  <text x="610" y="703" font-size="8" fill="#c4b5fd" font-family="monospace">&lt;link rel="alternate" type="application/aif+json"&gt;</text>
 
-  <rect x="716" y="556" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="779" y="575" text-anchor="middle" font-size="11" fill="#fcd34d">feed_items</text>
+  <!-- ══ INFRASTRUCTURE ══ -->
+  <rect x="20" y="750" width="1360" height="80" rx="12" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="40" y="775" font-size="11" fill="#64748b" font-weight="600" letter-spacing="2">INFRASTRUCTURE · $0/month (except ~$1.50 Anthropic)</text>
+  <rect x="40" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#22c55e" stroke-width="1"/>
+  <text x="115" y="809" text-anchor="middle" font-size="9" fill="#86efac">Cloud Run</text>
+  <rect x="200" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#f59e0b" stroke-width="1"/>
+  <text x="275" y="809" text-anchor="middle" font-size="9" fill="#fcd34d">Firebase Hosting</text>
+  <rect x="360" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#ef4444" stroke-width="1"/>
+  <text x="435" y="809" text-anchor="middle" font-size="9" fill="#fca5a5">Secret Manager</text>
+  <rect x="520" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#3b82f6" stroke-width="1"/>
+  <text x="595" y="809" text-anchor="middle" font-size="9" fill="#93c5fd">Cloud Scheduler</text>
+  <rect x="680" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#f59e0b" stroke-width="1"/>
+  <text x="755" y="809" text-anchor="middle" font-size="9" fill="#fcd34d">Supabase</text>
+  <rect x="840" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
+  <text x="915" y="809" text-anchor="middle" font-size="9" fill="#94a3b8">GitHub Actions</text>
+  <rect x="1000" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
+  <text x="1075" y="809" text-anchor="middle" font-size="9" fill="#94a3b8">npm Registry</text>
+  <rect x="1160" y="790" width="150" height="28" rx="5" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
+  <text x="1235" y="809" text-anchor="middle" font-size="9" fill="#94a3b8">Gmail SMTP</text>
 
-  <rect x="578" y="594" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="641" y="613" text-anchor="middle" font-size="11" fill="#fcd34d">subscriptions</text>
+  <!-- ══ GROWTH LOOP ══ -->
+  <rect x="20" y="850" width="1360" height="100" rx="12" fill="#0f0f15" stroke="#334155" stroke-width="1"/>
+  <text x="700" y="876" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600" letter-spacing="2">GROWTH LOOP</text>
+  <circle cx="140" cy="920" r="18" fill="#6366f1"/>
+  <text x="140" y="925" text-anchor="middle" font-size="11" fill="white" font-weight="700">1</text>
+  <text x="140" y="895" text-anchor="middle" font-size="9" fill="#94a3b8">Embed widget</text>
+  <circle cx="380" cy="920" r="18" fill="#3b82f6"/>
+  <text x="380" y="925" text-anchor="middle" font-size="11" fill="white" font-weight="700">2</text>
+  <text x="380" y="895" text-anchor="middle" font-size="9" fill="#94a3b8">Subscribe</text>
+  <circle cx="620" cy="920" r="18" fill="#f59e0b"/>
+  <text x="620" y="925" text-anchor="middle" font-size="11" fill="white" font-weight="700">3</text>
+  <text x="620" y="895" text-anchor="middle" font-size="9" fill="#94a3b8">Inject into AI</text>
+  <circle cx="860" cy="920" r="18" fill="#22c55e"/>
+  <text x="860" y="925" text-anchor="middle" font-size="11" fill="white" font-weight="700">4</text>
+  <text x="860" y="895" text-anchor="middle" font-size="9" fill="#94a3b8">Share OG card</text>
+  <circle cx="1100" cy="920" r="18" fill="#8b5cf6"/>
+  <text x="1100" y="925" text-anchor="middle" font-size="11" fill="white" font-weight="700">5</text>
+  <text x="1100" y="895" text-anchor="middle" font-size="9" fill="#94a3b8">New subscriber</text>
+  <line x1="160" y1="920" x2="358" y2="920" stroke="#4a5568" stroke-width="1.2" marker-end="url(#arr-s)"/>
+  <line x1="400" y1="920" x2="598" y2="920" stroke="#4a5568" stroke-width="1.2" marker-end="url(#arr-s)"/>
+  <line x1="640" y1="920" x2="838" y2="920" stroke="#4a5568" stroke-width="1.2" marker-end="url(#arr-s)"/>
+  <line x1="880" y1="920" x2="1078" y2="920" stroke="#4a5568" stroke-width="1.2" marker-end="url(#arr-s)"/>
+  <path d="M1120 912 Q1300 870 1300 850 L100 850 Q60 850 60 870 Q60 895 120 912" stroke="#8b5cf6" stroke-width="1.2" fill="none" stroke-dasharray="5 3" marker-end="url(#arr)"/>
 
-  <rect x="716" y="594" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="779" y="613" text-anchor="middle" font-size="11" fill="#fcd34d">profiles</text>
+  <!-- ══ COST BAR ══ -->
+  <rect x="20" y="968" width="1360" height="30" rx="6" fill="#0f0f15" stroke="#1e293b" stroke-width="1"/>
+  <text x="700" y="988" text-anchor="middle" font-size="10" fill="#334155">Total: Cloud Run $0 · Firebase $0 · Supabase $0 · Secrets $0 · Actions $0 · Gmail $0 · Anthropic ~$1.50/mo</text>
 
-  <rect x="578" y="632" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="641" y="651" text-anchor="middle" font-size="11" fill="#fcd34d">api_keys</text>
-
-  <rect x="716" y="632" width="126" height="28" rx="5" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
-  <text x="779" y="651" text-anchor="middle" font-size="11" fill="#fcd34d">auth.users</text>
-
-  <!-- Arrow: backend → database -->
-  <line x1="710" y1="470" x2="710" y2="533" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
-
-  <!-- ═══════════ SECTION: SECRETS (bottom left) ═══════════ -->
-  <text x="130" y="510" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">SECRETS</text>
-
-  <rect x="40" y="528" width="230" height="100" rx="12" fill="#1a1a24" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
-
-  <rect x="58" y="546" width="194" height="26" rx="5" fill="#1c0808" stroke="#dc2626" stroke-width="1"/>
-  <text x="155" y="564" text-anchor="middle" font-size="10" fill="#fca5a5">GCP Secret Manager</text>
-
-  <rect x="58" y="580" width="92" height="26" rx="5" fill="#1c0808" stroke="#dc2626" stroke-width="1"/>
-  <text x="104" y="598" text-anchor="middle" font-size="9" fill="#fca5a5">Supabase keys</text>
-
-  <rect x="160" y="580" width="92" height="26" rx="5" fill="#1c0808" stroke="#dc2626" stroke-width="1"/>
-  <text x="206" y="598" text-anchor="middle" font-size="9" fill="#fca5a5">API key hashes</text>
-
-  <!-- Arrow: secrets → backend -->
-  <line x1="270" y1="570" x2="555" y2="430" stroke="#ef4444" stroke-width="1" stroke-dasharray="6 3" marker-end="url(#arrow-gray)"/>
-
-  <!-- ═══════════ SECTION: CONSUMERS (right side) ═══════════ -->
-  <text x="1010" y="120" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">CONSUMERS</text>
-
-  <!-- Publisher Dashboard -->
-  <rect x="940" y="148" width="220" height="64" rx="10" fill="#1a1a24" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
-  <rect x="952" y="155" width="36" height="18" rx="4" fill="#6366f1"/>
-  <text x="970" y="168" text-anchor="middle" font-size="8" fill="white" font-weight="700">PUB</text>
-  <text x="998" y="170" font-size="13" fill="#e2e8f0" font-weight="600">Publisher Dashboard</text>
-  <text x="998" y="190" font-size="10" fill="#64748b">React 18 · Vite · Tailwind</text>
-  <text x="998" y="203" font-size="9" fill="#4a5568">Firebase Hosting</text>
-
-  <!-- Reader App -->
-  <rect x="940" y="228" width="220" height="64" rx="10" fill="#1a1a24" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
-  <rect x="952" y="235" width="36" height="18" rx="4" fill="#3b82f6"/>
-  <text x="970" y="248" text-anchor="middle" font-size="8" fill="white" font-weight="700">READ</text>
-  <text x="998" y="250" font-size="13" fill="#e2e8f0" font-weight="600">Reader App</text>
-  <text x="998" y="270" font-size="10" fill="#64748b">React 18 · TanStack Query</text>
-  <text x="998" y="283" font-size="9" fill="#4a5568">Firebase Hosting</text>
-
-  <!-- Chrome Extension -->
-  <rect x="940" y="308" width="220" height="64" rx="10" fill="#1a1a24" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
-  <rect x="952" y="315" width="36" height="18" rx="4" fill="#f59e0b"/>
-  <text x="970" y="328" text-anchor="middle" font-size="8" fill="white" font-weight="700">EXT</text>
-  <text x="998" y="330" font-size="13" fill="#e2e8f0" font-weight="600">Browser Extension</text>
-  <text x="998" y="350" font-size="10" fill="#64748b">Chrome MV3 · TypeScript</text>
-  <text x="998" y="363" font-size="9" fill="#4a5568">Feed discovery + AI injection</text>
-
-  <!-- Subscribe Widget -->
-  <rect x="940" y="388" width="220" height="50" rx="10" fill="#1a1a24" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
-  <rect x="952" y="395" width="36" height="18" rx="4" fill="#8b5cf6"/>
-  <text x="970" y="408" text-anchor="middle" font-size="7" fill="white" font-weight="700">JS</text>
-  <text x="998" y="410" font-size="13" fill="#e2e8f0" font-weight="600">Subscribe Widget</text>
-  <text x="998" y="428" font-size="10" fill="#64748b">Embeddable vanilla JS</text>
-
-  <!-- Arrows: backend → consumers -->
-  <line x1="860" y1="200" x2="935" y2="180" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="860" y1="240" x2="935" y2="260" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="860" y1="320" x2="935" y2="340" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="860" y1="370" x2="935" y2="413" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- ═══════════ SECTION: AI PLATFORMS (far right bottom) ═══════════ -->
-  <text x="1010" y="480" font-size="11" fill="#64748b" font-weight="600" letter-spacing="1.5">AI PLATFORMS</text>
-  <text x="1010" y="495" font-size="9" fill="#4a5568">Context injection via extension</text>
-
-  <rect x="940" y="508" width="100" height="34" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
-  <text x="990" y="530" text-anchor="middle" font-size="11" fill="#e2e8f0">Claude</text>
-
-  <rect x="1050" y="508" width="100" height="34" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
-  <text x="1100" y="530" text-anchor="middle" font-size="11" fill="#e2e8f0">ChatGPT</text>
-
-  <rect x="940" y="552" width="100" height="34" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
-  <text x="990" y="574" text-anchor="middle" font-size="11" fill="#e2e8f0">Gemini</text>
-
-  <rect x="1050" y="552" width="100" height="34" rx="6" fill="#1a1a24" stroke="#334155" stroke-width="1"/>
-  <text x="1100" y="574" text-anchor="middle" font-size="11" fill="#e2e8f0">Mistral</text>
-
-  <!-- Arrow: extension → AI platforms -->
-  <line x1="1050" y1="372" x2="1050" y2="503" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow-gray)"/>
-  <text x="1063" y="440" font-size="9" fill="#64748b">inject</text>
-
-  <!-- ═══════════ SECTION: VIRAL LOOP (bottom) ═══════════ -->
-  <rect x="40" y="720" width="1120" height="140" rx="14" fill="#1a1a24" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
-  <text x="600" y="750" text-anchor="middle" font-size="13" fill="#64748b" font-weight="600" letter-spacing="1.5">VIRAL LOOP</text>
-
-  <!-- Step 1 -->
-  <circle cx="140" cy="800" r="22" fill="#6366f1"/>
-  <text x="140" y="806" text-anchor="middle" font-size="14" fill="white" font-weight="700">1</text>
-  <text x="140" y="838" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Publisher</text>
-  <text x="140" y="852" text-anchor="middle" font-size="9" fill="#64748b">embeds widget</text>
-
-  <!-- Step 2 -->
-  <circle cx="360" cy="800" r="22" fill="#3b82f6"/>
-  <text x="360" y="806" text-anchor="middle" font-size="14" fill="white" font-weight="700">2</text>
-  <text x="360" y="838" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Reader</text>
-  <text x="360" y="852" text-anchor="middle" font-size="9" fill="#64748b">subscribes + installs ext</text>
-
-  <!-- Step 3 -->
-  <circle cx="580" cy="800" r="22" fill="#f59e0b"/>
-  <text x="580" y="806" text-anchor="middle" font-size="14" fill="white" font-weight="700">3</text>
-  <text x="580" y="838" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Inject</text>
-  <text x="580" y="852" text-anchor="middle" font-size="9" fill="#64748b">into AI chat</text>
-
-  <!-- Step 4 -->
-  <circle cx="800" cy="800" r="22" fill="#22c55e"/>
-  <text x="800" y="806" text-anchor="middle" font-size="14" fill="white" font-weight="700">4</text>
-  <text x="800" y="838" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Share</text>
-  <text x="800" y="852" text-anchor="middle" font-size="9" fill="#64748b">OG card on social</text>
-
-  <!-- Step 5 -->
-  <circle cx="1020" cy="800" r="22" fill="#8b5cf6"/>
-  <text x="1020" y="806" text-anchor="middle" font-size="14" fill="white" font-weight="700">5</text>
-  <text x="1020" y="838" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">New reader</text>
-  <text x="1020" y="852" text-anchor="middle" font-size="9" fill="#64748b">discovers + subscribes</text>
-
-  <!-- Arrows between steps -->
-  <line x1="165" y1="800" x2="333" y2="800" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
-  <line x1="385" y1="800" x2="553" y2="800" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
-  <line x1="605" y1="800" x2="773" y2="800" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
-  <line x1="825" y1="800" x2="993" y2="800" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
-
-  <!-- Loop-back arrow -->
-  <path d="M1045 790 Q1100 750 1100 720 Q1100 700 1050 700 L140 700 Q90 700 90 720 Q90 750 115 790" stroke="#8b5cf6" stroke-width="1.5" fill="none" stroke-dasharray="6 3" marker-end="url(#arrow)"/>
-  <text x="600" y="696" text-anchor="middle" font-size="9" fill="#8b5cf6">cycle repeats</text>
-
-  <!-- ═══════════ LEGEND ═══════════ -->
-  <rect x="40" y="660" width="180" height="20" rx="0" fill="none"/>
-  <line x1="50" y1="670" x2="80" y2="670" stroke="#6366f1" stroke-width="2"/>
-  <text x="88" y="674" font-size="9" fill="#64748b">Data flow</text>
-  <line x1="130" y1="670" x2="160" y2="670" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="168" y="674" font-size="9" fill="#64748b">Indirect / async</text>
+  <!-- Legend -->
+  <text x="40" y="1035" font-size="9" fill="#334155">Legend:</text>
+  <line x1="85" y1="1032" x2="105" y2="1032" stroke="#6366f1" stroke-width="2"/>
+  <text x="110" y="1036" font-size="8" fill="#4a5568">Data flow</text>
+  <line x1="165" y1="1032" x2="185" y2="1032" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="190" y="1036" font-size="8" fill="#4a5568">Async</text>
+  <rect x="230" y="1026" width="12" height="12" rx="2" fill="#0f2918" stroke="#16a34a" stroke-width="1"/>
+  <text x="246" y="1036" font-size="8" fill="#4a5568">Backend</text>
+  <rect x="295" y="1026" width="12" height="12" rx="2" fill="#1e1b2e" stroke="#6366f1" stroke-width="1"/>
+  <text x="311" y="1036" font-size="8" fill="#4a5568">User infra</text>
+  <rect x="365" y="1026" width="12" height="12" rx="2" fill="#1a1520" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="381" y="1036" font-size="8" fill="#4a5568">Notifications</text>
+  <rect x="445" y="1026" width="12" height="12" rx="2" fill="#1c1508" stroke="#d97706" stroke-width="1"/>
+  <text x="461" y="1036" font-size="8" fill="#4a5568">Database</text>
+  <rect x="515" y="1026" width="12" height="12" rx="2" fill="#1c0808" stroke="#991b1b" stroke-width="1"/>
+  <text x="531" y="1036" font-size="8" fill="#4a5568">Secrets</text>
 </svg>
