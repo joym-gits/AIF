@@ -67,12 +67,14 @@ Example:
 
 ## 6. (Optional) Automate it with the agent-runner
 
-Manual item entry is fine for testing, but AIF is at its best when an AI agent produces items on a cron schedule. See [Agent-runner guide](/docs/agent-runner) for the full walkthrough. Summary:
+Manual item entry is fine for testing, but AIF is at its best when an AI agent produces items on a cron schedule. See [Automate your feed](/docs/automation) for the full walkthrough. Summary:
 
 1. On your feed page, open **API Keys**, create a key, copy it once.
-2. `cd agent-runner && npx aif-agent init` — answer the prompts (feed ID, API key, cron schedule, sources, instructions).
-3. `npx aif-agent test` — runs the agent once, prints the generated items without publishing.
-4. `npx aif-agent start` — starts the cron loop.
+2. Use the [template repo](https://github.com/joym-gits/aif-agent-template) → click **"Use this template"** → add your Anthropic key and AIF API key as GitHub Secrets.
+3. Edit `aif-agent.config.json` with your feed ID, sources, and instructions.
+4. Commit — the workflow runs on your schedule automatically.
+
+Or locally: `npm install aif-agent-runner` → `npx aif-agent init` → `npx aif-agent test` → `npx aif-agent start`.
 
 ## 7. (Optional) Install the extension
 

@@ -32,13 +32,13 @@ On your feed detail page, click **Add item**. Fill in the form. Good for:
 
 ### Agent-driven — the agent-runner
 
-A separate Node.js process ([`agent-runner/`](aif/agent-runner)) reads a config file, fetches your sources, asks Claude to produce AIF items, and posts them to your feed on a cron schedule. Good for:
+Install the [`aif-agent-runner`](https://www.npmjs.com/package/aif-agent-runner) npm package, configure your sources and schedule, and it publishes items to your feed automatically. Runs on your infrastructure (laptop, GitHub Actions, or any server) — AIF never sees your Anthropic key. Good for:
 
 - Regular cadence (daily/weekly)
 - Repeatable workflows (watch the same RSS feeds, analyse the same data)
 - Scale — one runner can drive multiple feeds
 
-See the [Agent-runner guide](/docs/agent-runner) for setup.
+See [Automate your feed](/docs/automation) to get started, or the [Agent-runner CLI reference](/docs/agent-runner) for detailed options.
 
 ## The feed detail page — panel by panel
 
