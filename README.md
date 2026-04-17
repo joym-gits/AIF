@@ -362,11 +362,9 @@ AIF is AGPL-3.0 licensed and open source. The protocol spec is public — any to
 
 We welcome contributions of all kinds: code, documentation, protocol feedback, bug reports, and ideas.
 
-1. Fork the repo
-2. Create a branch (`git checkout -b my-feature`)
-3. Make your changes
-4. Run `npm run typecheck` from root to verify
-5. Open a PR
+**Read [CONTRIBUTING.md](./CONTRIBUTING.md) first** — it covers how to set up, what we need, code style, PR expectations, and the protocol change process.
+
+Quick version: fork → branch off `dev` → make change → `npm run typecheck` → PR against `dev` with a clear description.
 
 **First-time contributors:** look for issues labeled `good-first-issue`. Or pick something from the roadmap above.
 
