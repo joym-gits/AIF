@@ -19,4 +19,5 @@ export const env = {
     .filter(Boolean),
   EMAIL_PROVIDER_URL: process.env.EMAIL_PROVIDER_URL ?? "",
   EMAIL_PROVIDER_KEY: process.env.EMAIL_PROVIDER_KEY ?? "",
+  EMAIL_FROM: process.env.EMAIL_FROM ?? "AIF <onboarding@resend.dev>",
 };

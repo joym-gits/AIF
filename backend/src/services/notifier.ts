@@ -159,18 +159,13 @@ async function sendEmail(
 </body>
 </html>`;
 
-  const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
-    data: {},
-    redirectTo: undefined,
-  });
-  // Supabase doesn't have a raw "send email" API via admin SDK.
-  // Use Resend/Postmark/SES via fetch instead.
   const emailProvider = env.EMAIL_PROVIDER_URL;
   if (!emailProvider) {
     logger.warn({ channelId: ch.id }, "email notification skipped — no EMAIL_PROVIDER_URL configured");
     return;
   }
 
+  const from = env.EMAIL_FROM || "AIF <onboarding@resend.dev>";
   const res = await fetch(emailProvider, {
     method: "POST",
     headers: {
@@ -178,14 +173,17 @@ async function sendEmail(
       Authorization: `Bearer ${env.EMAIL_PROVIDER_KEY}`,
     },
     body: JSON.stringify({
-      from: "AIF <notifications@aif.dev>",
-      to: email,
+      from,
+      to: [email],
       subject: `${feedTitle} — ${items.length} new item${items.length > 1 ? "s" : ""}`,
       html,
     }),
     signal: AbortSignal.timeout(10_000),
   });
-  if (!res.ok) throw new Error(`Email API returned ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Email API returned ${res.status}: ${body}`);
+  }
   logger.info({ channelId: ch.id, to: email, items: items.length }, "email sent");
 }
 
