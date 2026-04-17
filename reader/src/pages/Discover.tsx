@@ -15,6 +15,8 @@ interface Feed {
   is_verified?: boolean;
 }
 
+interface SubRow { feed_id: string }
+
 const DOMAINS = ["all", "healthcare", "finance", "legal", "research", "tech"] as const;
 
 const FEATURED: Feed[] = [
@@ -42,8 +44,22 @@ export default function Discover() {
     staleTime: 5 * 60 * 1000,
   });
 
+  const subs = useQuery({
+    queryKey: ["subs"],
+    enabled: !!session,
+    queryFn: () => api<{ subscriptions: SubRow[] }>("/api/v1/me/subscriptions"),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const subscribedIds = new Set(subs.data?.subscriptions.map((s) => s.feed_id) ?? []);
+
   const subscribe = useMutation({
     mutationFn: (id: string) => api(`/api/v1/feeds/${id}/subscribe`, { method: "POST" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["subs"] }),
+  });
+
+  const unsubscribe = useMutation({
+    mutationFn: (id: string) => api(`/api/v1/feeds/${id}/subscribe`, { method: "DELETE" }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["subs"] }),
   });
 
@@ -102,8 +118,11 @@ export default function Discover() {
             <FeedCard
               key={f.id}
               feed={f}
+              subscribed={subscribedIds.has(f.id)}
               onSubscribe={session ? () => subscribe.mutate(f.id) : undefined}
+              onUnsubscribe={session ? () => unsubscribe.mutate(f.id) : undefined}
               subscribing={subscribe.isPending && subscribe.variables === f.id}
+              unsubscribing={unsubscribe.isPending && unsubscribe.variables === f.id}
             />
           ))}
           {feeds.data?.length === 0 && <p className="text-slate-500">No feeds match.</p>}
@@ -115,13 +134,19 @@ export default function Discover() {
 
 function FeedCard({
   feed,
+  subscribed,
   onSubscribe,
+  onUnsubscribe,
   subscribing,
+  unsubscribing,
   disabled,
 }: {
   feed: Feed;
+  subscribed?: boolean;
   onSubscribe?: () => void;
+  onUnsubscribe?: () => void;
   subscribing?: boolean;
+  unsubscribing?: boolean;
   disabled?: boolean;
 }) {
   const cls = DOMAIN_COLORS[feed.domain ?? "general"] ?? DOMAIN_COLORS.general;
@@ -138,13 +163,28 @@ function FeedCard({
       <div className="flex items-center gap-3 text-xs text-slate-500 mt-3">
         <span>{feed.subscriber_count ?? 0} subs</span>
         {feed.cadence && <span>· {feed.cadence}</span>}
-        <button
-          disabled={!onSubscribe || disabled || subscribing}
-          onClick={onSubscribe}
-          className="ml-auto px-3 py-1 rounded bg-brand text-white disabled:opacity-50"
-        >
-          {subscribing ? "Subscribing…" : "Subscribe"}
-        </button>
+        {subscribed ? (
+          <div className="ml-auto flex items-center gap-2">
+            <span className="px-3 py-1 rounded bg-emerald-900/40 text-emerald-400 border border-emerald-800">
+              Subscribed ✓
+            </span>
+            <button
+              disabled={unsubscribing}
+              onClick={onUnsubscribe}
+              className="px-3 py-1 rounded border border-slate-700 text-slate-300 hover:border-rose-600 hover:text-rose-400"
+            >
+              {unsubscribing ? "Removing…" : "Unsubscribe"}
+            </button>
+          </div>
+        ) : (
+          <button
+            disabled={!onSubscribe || disabled || subscribing}
+            onClick={onSubscribe}
+            className="ml-auto px-3 py-1 rounded bg-brand text-white disabled:opacity-50"
+          >
+            {subscribing ? "Subscribing…" : "Subscribe"}
+          </button>
+        )}
       </div>
     </div>
   );
