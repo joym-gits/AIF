@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --config ../test/config/extension.vitest.config.ts",
+    "test:unit": "vitest run --config ../test/config/extension.vitest.config.ts",
+    "test:coverage": "vitest run --config ../test/config/extension.vitest.config.ts --coverage"
   },
   "dependencies": {
     "@aif/shared": "*"

@@ -1,4 +1,5 @@
 import type { CachedItem, DetectedFeed, Message } from "./types";
+import { buildContextBlock } from "./contentUtils";
 
 const AI_HOSTS = ["claude.ai", "chatgpt.com", "gemini.google.com", "chat.mistral.ai"];
 
@@ -179,20 +180,6 @@ chrome.runtime.onMessage.addListener((msg: Message, _sender, sendResponse) => {
   }
   return false;
 });
-
-function buildContextBlock(feedTitle: string, item: CachedItem): string {
-  const date = new Date(item.published_at).toISOString().slice(0, 10);
-  const signals = (item.signals ?? []).join(", ");
-  const confidence = item.confidence != null ? item.confidence.toFixed(2) : "n/a";
-  return [
-    `[AIF CONTEXT — ${feedTitle} — ${date}]`,
-    item.summary,
-    `Signals: ${signals}`,
-    `Confidence: ${confidence}`,
-    `[END AIF CONTEXT]`,
-    "",
-  ].join("\n");
-}
 
 function injectContext(feedTitle: string, item: CachedItem): boolean {
   const block = buildContextBlock(feedTitle, item);

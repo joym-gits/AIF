@@ -2,4 +2,4 @@
 # This is enforced by the branch protection rules on main and dev.
 # See: https://github.com/joym-gits/AIF/settings/branches
 
-*                         @joym-gits
+*@joym-gits

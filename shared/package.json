@@ -16,7 +16,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "test": "vitest run --config ../test/config/shared.vitest.config.ts",
+    "test:unit": "vitest run --config ../test/config/shared.vitest.config.ts",
+    "test:coverage": "vitest run --config ../test/config/shared.vitest.config.ts --coverage"
   },
   "dependencies": {
     "zod": "^3.23.8"

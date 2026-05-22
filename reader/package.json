@@ -7,7 +7,10 @@
     "dev": "vite --port 5174",
     "build": "tsc && vite build",
     "preview": "vite preview --port 5174",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --config ../test/config/reader.vitest.config.ts",
+    "test:unit": "vitest run --config ../test/config/reader.vitest.config.ts",
+    "test:coverage": "vitest run --config ../test/config/reader.vitest.config.ts --coverage"
   },
   "dependencies": {
     "@aif/shared": "*",
