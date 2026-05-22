@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { AgentConfig } from "./config";
 import { gatherSources } from "./sources";
 
@@ -11,11 +12,22 @@ export interface GeneratedItem {
   tags: string[];
 }
 
-export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set");
+type APIProvider = "anthropic" | "gemini";
 
-  const client = new Anthropic({ apiKey });
+function detectAPIProvider(): APIProvider {
+  if (process.env.GEMINI_API_KEY) {
+    console.log("[agent] Using Google Gemini API");
+    return "gemini";
+  }
+  if (process.env.ANTHROPIC_API_KEY) {
+    console.log("[agent] Using Anthropic API");
+    return "anthropic";
+  }
+  throw new Error("Neither ANTHROPIC_API_KEY nor GEMINI_API_KEY is set");
+}
+
+export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
+  const provider = detectAPIProvider();
   const contents = await gatherSources(cfg.agent.sources);
   if (contents.length === 0) {
     console.warn("[agent] no source content gathered");
@@ -51,8 +63,26 @@ export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
     cfg.agent.instructions,
   ].join("\n");
 
+  let text: string;
+
+  if (provider === "gemini") {
+    text = await runWithGemini(cfg.agent.model, system, sourceBlock);
+  } else {
+    text = await runWithAnthropic(cfg.agent.model, system, sourceBlock);
+  }
+
+  const items = parseItems(text);
+  return items.slice(0, cfg.agent.output.max_items);
+}
+
+async function runWithAnthropic(model: string, system: string, sourceBlock: string): Promise<string> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set");
+
+  const client = new Anthropic({ apiKey });
+
   const res = await client.messages.create({
-    model: cfg.agent.model,
+    model,
     max_tokens: 4096,
     system,
     messages: [{ role: "user", content: sourceBlock }],
@@ -63,8 +93,23 @@ export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
     .map((b) => b.text)
     .join("\n");
 
-  const items = parseItems(text);
-  return items.slice(0, cfg.agent.output.max_items);
+  return text;
+}
+
+async function runWithGemini(model: string, system: string, sourceBlock: string): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const geminiModel = genAI.getGenerativeModel({ model });
+
+  const fullPrompt = `${system}\n\n${sourceBlock}`;
+
+  const result = await geminiModel.generateContent(fullPrompt);
+  const response = result.response;
+  const text = response.text();
+
+  return text;
 }
 
 function parseItems(text: string): GeneratedItem[] {
