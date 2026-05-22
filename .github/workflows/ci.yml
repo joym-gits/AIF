@@ -79,9 +79,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'test/test-output/'
+        continue-on-error: true
 
   deploy-pages:
-    if: github.ref == 'refs/heads/feat/testing' && needs.test.result == 'success'
+    if: github.ref == 'refs/heads/feat/testing'
     needs: test
     permissions:
       pages: write
@@ -94,4 +95,14 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Pages deployment status
+        run: |
+          if [ "${{ steps.deployment.outcome }}" == "failure" ]; then
+            echo "⚠️ GitHub Pages deployment failed. Enable Pages in repository settings."
+            echo "📊 Coverage reports available in workflow Artifacts instead."
+          else
+            echo "✅ Test dashboard deployed to GitHub Pages"
+          fi
 
