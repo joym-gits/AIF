@@ -1,6 +1,8 @@
 Project name -> AIF
-password->Vasavi@4217
-anon public->eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZGNtZWpka2d2bXpqeGdmbWNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMTMyMzUsImV4cCI6MjA5NDg4OTIzNX0.RXn1O0OspgqZgC2foRa85jK-qkhnRMD8xPlU7ugmD_M
-service_role->eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZGNtZWpka2d2bXpqeGdmbWNhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTMxMzIzNSwiZXhwIjoyMDk0ODg5MjM1fQ.QmUEQmfN1VuBbIPvauVOQR4Cm_RHdPH6wfH6dspirwQ
+password-><REMOVED: retrieve from secure secret manager or local environment>
+anon public-><REMOVED: retrieve from secure secret manager or local environment>
+service_role-><REMOVED: never store service_role keys in the repository>
 
-project url->https://bmdcmejdkgvmzjxgfmca.supabase.co
+project url-><REMOVED: retrieve from secure configuration>
+
+NOTE: Previously committed credentials must be rotated/revoked immediately and removed from git history.
