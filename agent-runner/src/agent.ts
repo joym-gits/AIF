@@ -15,14 +15,53 @@ export interface GeneratedItem {
 type APIProvider = "anthropic" | "gemini";
 
 function detectAPIProvider(): APIProvider {
-  if (process.env.GEMINI_API_KEY) {
+  const explicitProvider = process.env.AI_PROVIDER;
+  const hasGeminiKey = Boolean(process.env.GEMINI_API_KEY);
+  const hasAnthropicKey = Boolean(process.env.ANTHROPIC_API_KEY);
+
+  if (explicitProvider) {
+    if (explicitProvider !== "gemini" && explicitProvider !== "anthropic") {
+      throw new Error(
+        'Invalid AI_PROVIDER value. Expected "gemini" or "anthropic".',
+      );
+    }
+
+    if (explicitProvider === "gemini" && !hasGeminiKey) {
+      throw new Error(
+        "AI_PROVIDER is set to gemini but GEMINI_API_KEY is not set",
+      );
+    }
+
+    if (explicitProvider === "anthropic" && !hasAnthropicKey) {
+      throw new Error(
+        "AI_PROVIDER is set to anthropic but ANTHROPIC_API_KEY is not set",
+      );
+    }
+
+    console.log(
+      explicitProvider === "gemini"
+        ? "[agent] Using Google Gemini API"
+        : "[agent] Using Anthropic API",
+    );
+    return explicitProvider;
+  }
+
+  if (hasGeminiKey && hasAnthropicKey) {
+    throw new Error(
+      "Both ANTHROPIC_API_KEY and GEMINI_API_KEY are set. Set AI_PROVIDER to either \"anthropic\" or \"gemini\" to choose explicitly.",
+    );
+  }
+
+  if (hasGeminiKey) {
     console.log("[agent] Using Google Gemini API");
     return "gemini";
   }
-  if (process.env.ANTHROPIC_API_KEY) {
+
+  if (hasAnthropicKey) {
     console.log("[agent] Using Anthropic API");
     return "anthropic";
   }
+
   throw new Error("Neither ANTHROPIC_API_KEY nor GEMINI_API_KEY is set");
 }
 
