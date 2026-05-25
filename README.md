@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/AIF-1.0-6366f1?style=for-the-badge&labelColor=0f0f13" alt="AIF 1.0" />
-  <img src="https://img.shields.io/badge/license-AGPL--3.0-green?style=for-the-badge&labelColor=0f0f13" alt="AGPL-3.0 License" />
+  <img src="https://img.shields.io/badge/license-AGPL--3.0--or--later-green?style=for-the-badge&labelColor=0f0f13" alt="AGPL-3.0-or-later License" />
   <img src="https://img.shields.io/badge/TypeScript-5.4-3178c6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=0f0f13" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Node.js-20-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=0f0f13" alt="Node 20" />
   <img src="https://img.shields.io/npm/v/aif-agent-runner?style=for-the-badge&label=agent-runner&color=cb3837&labelColor=0f0f13" alt="npm" />
