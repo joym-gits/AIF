@@ -1,0 +1,8 @@
+Project name -> AIF
+password-><REMOVED: retrieve from secure secret manager or local environment>
+anon public-><REMOVED: retrieve from secure secret manager or local environment>
+service_role-><REMOVED: never store service_role keys in the repository>
+
+project url-><REMOVED: retrieve from secure configuration>
+
+NOTE: Previously committed credentials must be rotated/revoked immediately and removed from git history.

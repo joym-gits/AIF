@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { AgentConfig } from "./config";
 import { gatherSources } from "./sources";
 
@@ -11,11 +12,61 @@ export interface GeneratedItem {
   tags: string[];
 }
 
-export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set");
+type APIProvider = "anthropic" | "gemini";
 
-  const client = new Anthropic({ apiKey });
+function detectAPIProvider(): APIProvider {
+  const explicitProvider = process.env.AI_PROVIDER;
+  const hasGeminiKey = Boolean(process.env.GEMINI_API_KEY);
+  const hasAnthropicKey = Boolean(process.env.ANTHROPIC_API_KEY);
+
+  if (explicitProvider) {
+    if (explicitProvider !== "gemini" && explicitProvider !== "anthropic") {
+      throw new Error(
+        'Invalid AI_PROVIDER value. Expected "gemini" or "anthropic".',
+      );
+    }
+
+    if (explicitProvider === "gemini" && !hasGeminiKey) {
+      throw new Error(
+        "AI_PROVIDER is set to gemini but GEMINI_API_KEY is not set",
+      );
+    }
+
+    if (explicitProvider === "anthropic" && !hasAnthropicKey) {
+      throw new Error(
+        "AI_PROVIDER is set to anthropic but ANTHROPIC_API_KEY is not set",
+      );
+    }
+
+    console.log(
+      explicitProvider === "gemini"
+        ? "[agent] Using Google Gemini API"
+        : "[agent] Using Anthropic API",
+    );
+    return explicitProvider;
+  }
+
+  if (hasGeminiKey && hasAnthropicKey) {
+    throw new Error(
+      "Both ANTHROPIC_API_KEY and GEMINI_API_KEY are set. Set AI_PROVIDER to either \"anthropic\" or \"gemini\" to choose explicitly.",
+    );
+  }
+
+  if (hasGeminiKey) {
+    console.log("[agent] Using Google Gemini API");
+    return "gemini";
+  }
+
+  if (hasAnthropicKey) {
+    console.log("[agent] Using Anthropic API");
+    return "anthropic";
+  }
+
+  throw new Error("Neither ANTHROPIC_API_KEY nor GEMINI_API_KEY is set");
+}
+
+export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
+  const provider = detectAPIProvider();
   const contents = await gatherSources(cfg.agent.sources);
   if (contents.length === 0) {
     console.warn("[agent] no source content gathered");
@@ -51,8 +102,26 @@ export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
     cfg.agent.instructions,
   ].join("\n");
 
+  let text: string;
+
+  if (provider === "gemini") {
+    text = await runWithGemini(cfg.agent.model, system, sourceBlock);
+  } else {
+    text = await runWithAnthropic(cfg.agent.model, system, sourceBlock);
+  }
+
+  const items = parseItems(text);
+  return items.slice(0, cfg.agent.output.max_items);
+}
+
+async function runWithAnthropic(model: string, system: string, sourceBlock: string): Promise<string> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set");
+
+  const client = new Anthropic({ apiKey });
+
   const res = await client.messages.create({
-    model: cfg.agent.model,
+    model,
     max_tokens: 4096,
     system,
     messages: [{ role: "user", content: sourceBlock }],
@@ -63,8 +132,23 @@ export async function runAgent(cfg: AgentConfig): Promise<GeneratedItem[]> {
     .map((b) => b.text)
     .join("\n");
 
-  const items = parseItems(text);
-  return items.slice(0, cfg.agent.output.max_items);
+  return text;
+}
+
+async function runWithGemini(model: string, system: string, sourceBlock: string): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const geminiModel = genAI.getGenerativeModel({ model });
+
+  const fullPrompt = `${system}\n\n${sourceBlock}`;
+
+  const result = await geminiModel.generateContent(fullPrompt);
+  const response = result.response;
+  const text = response.text();
+
+  return text;
 }
 
 function parseItems(text: string): GeneratedItem[] {

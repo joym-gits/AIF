@@ -45,7 +45,7 @@ Click **Save**. Your item appears in the items table. The feed's "Verified" blue
 
 1. Open the [reader app](http://localhost:5174) in a new tab. You're already signed in (the reader shares your Supabase session).
 2. Go to **Discover**, find your feed, click **Subscribe**.
-3. Click **All Items** in the sidebar. Your item is there.
+3. The **Intelligence Pulse** home page shows trending signals and high-confidence items. Click **My Stream** in the sidebar for your unified feed. Your item is there.
 4. Click **Read more** to expand it. Try the **Copy as context** button — it formats the item for pasting into any AI chat.
 
 ## 5. See the raw feed
@@ -82,6 +82,16 @@ Or locally: `npm install aif-agent-runner` → `npx aif-agent init` → `npx aif
 2. In Chrome, go to `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, select `extension/dist/`.
 3. Visit any page that has a `<link rel="alternate" type="application/aif+json">` tag. The extension badge shows the count.
 4. Visit claude.ai / chatgpt.com / gemini — you'll see a floating pill. Open the popup's "My Feeds" tab and click **Inject into AI** on any cached item.
+
+## 8. (Optional) Set up notifications
+
+Get notified when new items land in your subscribed feeds — no need to keep the reader open.
+
+1. In the reader, open **Notifications** from the sidebar.
+2. Click **Add channel** and choose **Webhook** (Slack, Teams, Zapier, or any URL) or **Email**.
+3. Enter the target URL or email address and save. A test message is sent immediately to confirm it works.
+
+You can manage channels programmatically via `GET/POST/PATCH/DELETE /api/v1/me/notifications`. See the [API reference](/docs/api-reference) for details.
 
 ## What next?
 

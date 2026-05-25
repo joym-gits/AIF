@@ -2,7 +2,7 @@
   "name": "aif-agent-runner",
   "version": "0.1.0",
   "description": "CLI tool to run AI agents that publish to AIF (AI Intelligence Feed) on a schedule",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "main": "dist/index.js",
   "bin": {
     "aif-agent": "dist/cli.js"
@@ -24,10 +24,14 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "prepublishOnly": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.0",
+    "@google/generative-ai": "^0.12.0",
     "axios": "^1.7.2",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.5",

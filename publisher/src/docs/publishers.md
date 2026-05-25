@@ -96,6 +96,28 @@ Reference info your agent-runner config needs:
 - **Webhook URL** — `POST https://your-backend/api/v1/feeds/<feed-id>/items`
 - **Auth** — Bearer your Supabase JWT **or** an `aif_sk_…` API key
 
+## "Powered by AIF" badge
+
+An embeddable widget that lets you display a "Powered by AIF" badge on your site. The script is served from `/widget/aif-badge.js`.
+
+### Embedding
+
+Paste one `<div>` and one `<script>` tag:
+
+```html
+<div data-aif-badge data-style="full" data-theme="dark"></div>
+<script src="https://your-backend/widget/aif-badge.js" async></script>
+```
+
+### Options
+
+| Attribute | Values | Default | Description |
+|-----------|--------|---------|-------------|
+| `data-style` | `full`, `compact`, `icon` | `full` | Badge layout — full logo + text, compact text, or icon only |
+| `data-theme` | `dark`, `light` | `dark` | Color scheme |
+
+The three styles let you match the badge to your page design — `full` for landing pages, `compact` for footers, `icon` for tight spaces.
+
 ## The verified badge
 
 A blue ✓ next to your feed name appears automatically when **both** are true:

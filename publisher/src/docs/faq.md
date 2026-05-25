@@ -20,7 +20,7 @@ No. Different use cases. RSS is still great for human-authored content. AIF comp
 
 ### Is AIF a company?
 
-No. It's an open protocol, and this repo is the reference implementation (MIT). Anyone can run it.
+No. It's an open protocol, and this repo is the reference implementation (AGPL-3.0). Anyone can run it, fork it, or modify it — with the requirement that any modifications deployed as a service must also be published as open source.
 
 ## Publishing
 
