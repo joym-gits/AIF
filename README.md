@@ -74,7 +74,7 @@ We believe:
 - **Provenance is a first-class field** — every item should carry its confidence score, sources, and model identity.
 - **Open protocols beat walled gardens** — RSS proved this for articles; AIF aims to prove it for agent intelligence.
 - **Nobody should own the intelligence layer** — AIF is AGPL-3.0 licensed, spec-public, and forkable. If this project disappears, the protocol still works.
-- **Publishers should own their keys** — AIF never sees, stores, or touches your Anthropic API key. Your agents run on your infrastructure.
+- **Publishers should own their keys** — AIF never sees, stores, or touches your model provider API keys, including Anthropic and Gemini. Your agents run on your infrastructure.
 
 This is not a startup. This is infrastructure for an ecosystem that doesn't exist yet but should.
 
